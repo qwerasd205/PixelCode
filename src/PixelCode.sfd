@@ -22,7 +22,7 @@ OS2Version: 4
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1280473793
-ModificationTime: 1663126680
+ModificationTime: 1663131569
 PfmFamily: 17
 TTFWeight: 500
 TTFWidth: 5
@@ -2392,7 +2392,7 @@ Encoding: 12 44 12
 Width: 12
 VWidth: 36
 GlyphClass: 2
-Flags: WO
+Flags: W
 HStem: -2 4<3 5>
 VStem: 3 2<-2 2>
 TtInstrs:
@@ -30979,6 +30979,7 @@ SplineSet
  5 6 l 1
 EndSplineSet
 Refer: 29 61 N 1 0 0 1 8 0 2
+LCarets2: 1 0
 Ligature2: "liga-subtable" colon equal
 EndChar
 
@@ -31611,7 +31612,6 @@ SplineSet
  23 4 l 1,59,-1
  25 4 l 1,56,-1
 EndSplineSet
-Ligature2: "liga-subtable" less less less
 Ligature2: "liga-subtable" greater greater greater
 EndChar
 
@@ -31698,6 +31698,7 @@ SplineSet
  13 4 l 1,59,-1
  11 4 l 1,56,-1
 EndSplineSet
+Ligature2: "liga-subtable" less less less
 EndChar
 
 StartChar: question_dot
