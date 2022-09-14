@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pixel Code</title>
+        <style>
+            @font-face {
+                font-family: "Pixel Code";
+                src: url("../dist/PixelCode.woff2") format("woff2"), url("../dist/PixelCode.woff") format("woff");
+            }
+
+            :root {
+                --accent: #FFAAFF;
+            }
+
+            body {
+                font-family: "Pixel Code", "Comic Sans MS";
+                background-color: #000;
+                color: #FFF;
+                width: 80ch;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 12px;
+            }
+
+            .r {
+                font-weight: normal !important;
+                color: #FFF;
+            }
+
+            h1, h2, h3, h4 {
+                text-align: center;
+            }
+
+            h3 {
+                color: var(--accent);
+            }
+
+            h2, h4 {
+                margin-top: -1em;
+                font-weight: normal;
+            }
+
+            .ex {
+                font-family: "Pixel Code", "Comic Sans MS";
+                outline: 0.125em solid white;
+                padding: 2em;
+            }
+
+            .hi {
+                color: var(--accent);
+                position: relative;
+            }
+
+            label {
+                user-select: none;
+                -webkit-user-select: none;
+            }
+
+            input[type="checkbox"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                font-size: 100%;
+                width: 1.5em; height: 1.5em;
+                background-color: #000;
+                vertical-align: -0.5em;
+                font-family: "Pixel Code", "Comic Sans MS";
+                position: relative;
+                outline: 0.125em solid white;
+            }
+            input[type="checkbox"]::after {
+                font-size: 175%;
+                content: "X";
+                color: #FFF;
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                line-height: 0.75;
+                left: 0.015625em;
+            }
+            input:checked {
+                background-color: #FFF;
+            }
+            input:checked::after {
+                content: "✓";
+                color: #000;
+            }
+
+            a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            a.button {
+                font-size: 125%;
+                border: 0.125em solid #FFF;
+                padding: 0.25em 1em;
+                margin-left: 1em; margin-right: 1em;
+                background-color: var(--accent);
+                color: #000;
+                text-decoration: underline;
+            }
+
+            a.button:hover, a.button:focus {
+                background-color: #FFF;
+            }
+
+            .bottomspacer {
+                height: 16em;
+            }
+
+            .justified {
+                text-align: justify;
+                text-justify: newspaper;
+            }
+
+            .download-section {
+                text-align: center;
+                margin-top: 2em; margin-bottom: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Pixel Code</h1>
+        <h2>A pixel font that's actually good for programming.</h2>
+        <p class="justified">
+            Pixel Code is a monospace pixel art style programming font which is designed to maximize readability
+            and code-friendliness, while sticking to a pixel grid.
+        </p>
+        <p class="justified">
+            Each glyph was carefully designed to be as legible as possible, with special consideration given to
+            their roles in programming. Furthermore, the OpenType Contextual Alternates feature has been leveraged
+            to provide pseudo-kerning, eliminating uneven gaps caused by thin letters like 'i' and 'l', while
+            avoiding the need to reduce their legibility by making them wider.
+        </p>
+        <p class="justified">
+            Pixel Code also includes a full set of programming ligatures inspired by those in fonts like <a href="https://github.com/tonsky/FiraCode" rel="noreferrer noopener">Fira Code</a>.
+            Ligatures reduce visual noise, consolodating the meanings of multi-glyph structures automatically, so
+            that the programmer's brain can spend more of its resources on actually programming.
+        </p>
+        <p>
+            I hope you enjoy the font, I put a lot of work in to it!
+        </p>
+        <p class="download-section">
+            <a href="#" class="button">Latest Release</a>
+        </p>
+        <p>
+            You can explore the togglable OpenType features of this font below.
+        </p>
+        <br>
+        <h3>Programming Ligatures</h3>
+        <h4>(to reduce visual noise)</h4>
+        <p>
+            Can be toggled with the "Ligatures" OpenType feature.<br><br>
+            (liga) <input type="checkbox" name="liga" id="liga" checked> <label for="liga">Enabled</label>
+        </p>
+        <h4>Ligatures</h4>
+        <div class="ex">
+            Comments:<br>
+            <span class="hi">//</span> Single-line<br>
+            <span class="hi">/*</span> Multi-line <span class="hi">*/</span><br>
+            <span class="hi">&lt;!--</span> HTML-style <span class="hi">--&gt;</span><br>
+            <br>
+            Comparisons:<br>
+            x <span class="hi">&gt;=</span> y<br>
+            x <span class="hi">&lt;=</span> y<br>
+            x <span class="hi">!=</span> y<br>
+            x <span class="hi">==</span> y<br>
+            x <span class="hi">!==</span> y<br>
+            x <span class="hi">===</span> y<br>
+            <br>
+            Arrows:<br>
+            <span class="hi">=&gt;</span><br>
+            <span class="hi">-&gt;</span><br>
+            <span class="hi">&lt;-</span><br>
+            <br>
+            Assignments:<br>
+            a <span class="hi">:=</span> b<br>
+            a <span class="hi">*=</span> b<br>
+            a <span class="hi">/=</span> b<br>
+            a <span class="hi">|=</span> b<br>
+            a <span class="hi">&gt;&gt;=</span> b<br>
+            a <span class="hi">&lt;&lt;=</span> b<br>
+            <br>
+            Bitwise:<br>
+            p <span class="hi">&gt;&gt;</span> q<br>
+            p <span class="hi">&lt;&lt;</span> q<br>
+            p <span class="hi">&gt;&gt;&gt;</span> q<br>
+            p <span class="hi">&lt;&lt;&lt;</span> q<br>
+            <br>
+            Miscellaneous:<br>
+            j <span class="hi">||</span> k<br>
+            j <span class="hi">**</span> k<br>
+            std<span class="hi">::</span>namespace<br>
+            optional<span class="hi">?.</span>chaining<br>
+            https<span class="hi">://</span>example.com
+        </div>
+        <br><br>
+        <h3>Contextually Aware Punctuation <div class="r">and</div> Fine-Tuned Inter-Character Alignments <div class="r">to avoid unseamly gaps.</div></h3>
+        <h4>(all while remaining monospaced)</h4>
+        <p>
+            Can be toggled with the "Contextual Alternates" OpenType feature.<br><br>
+            (calt) <input type="checkbox" name="calt" id="calt" checked> <label for="calt">Enabled</label>
+        </p>
+        <h4>Context-aware punctuation.</h4>
+        <div class="ex">
+            0xFF 1920x1080 | Simplified x for hexadecimal and dimensions.<br>
+            <br>
+            *EQ *eq | Asterisks, colons, hyphens and plus signs<br>
+            A:E a:e | will move up or down depending on if they<br>
+            C-O c-o | follow (or precede) an uppercase or lower<br>
+            X+Z x+z | case letter.
+        </div>
+        <br><br>
+        <h4>Gap-adjustments.</h4>
+        <div class="ex">
+            w<span class="hi">ill</span> ......| &nbsp;Notice, that even though<br>
+            h<span class="hi">ull</span> ......| toggling the calt feature<br>
+            fr<span class="hi">ill</span> .....| &nbsp;&nbsp;moves these 'l's to the<br>
+            ta<span class="hi">ili</span>ng ...| &nbsp;&nbsp;left, the characters to<br>
+            mod<span class="hi">ule</span> ....| &nbsp;the right remain unmoved.<br>
+            cas<span class="hi">tle</span> ....| <br>
+            sol<span class="hi">ilo</span>quy .| &nbsp;&nbsp;&nbsp;Monospace is preserved.
+        </div>
+        <br><br>
+        <h3>Stylistic Alternates</h3>
+        <h4>(for those who prefer)</h4>
+        <p>
+            Currently the only implemented stylistic alternate is Oldstyle Figures.<br><br>
+            (onum) <input type="checkbox" name="onum" id="onum"> <label for="onum">Disabled</label>
+        </p>
+        <h4>Oldstyle Figures (onum)</h4>
+        <div class="ex">
+            <span class="hi">10</span>, <span class="hi">9</span>, <span class="hi">8</span>, <span class="hi">7</span>,
+            <span class="hi">6</span>, <span class="hi">5</span>, <span class="hi">4</span>, <span class="hi">3</span>,
+            <span class="hi">2</span>, <span class="hi">1</span> -- Lift-off!<br>
+            <br>
+            What was it? <span class="hi">525</span>_<span class="hi">600</span> minutes in a year?<br>
+            <br>
+            const PI = <span class="hi">3</span>.<span class="hi">14159265358979323846264338</span>; // TODO: Increase precision.<br>
+            <br>
+            let [x<span class="hi">1</span>, y<span class="hi">1</span>] = [<span class="hi">0</span>.<span class="hi">12569</span>, <span class="hi">0</span>.<span class="hi">45780</span>];<br>
+        </div>
+        <br><br>
+        <div class="bottomspacer"></div>
+
+        <script>
+            let calt = true;
+            let onum = false;
+            let liga = true;
+            const update_style = () => {
+                document.body.style.fontFeatureSettings = `"calt" ${+calt}, "onum" ${+onum}, "liga" ${+liga}`;
+            }
+            update_style();
+            const liga_toggle = document.getElementById('liga');
+            liga_toggle.addEventListener('input', () => {
+                liga = liga_toggle.checked;
+                liga_toggle.nextElementSibling.textContent = liga ? 'Enabled' : 'Disabled';
+                update_style();
+            });
+            const calt_toggle = document.getElementById('calt');
+            calt_toggle.addEventListener('input', () => {
+                calt = calt_toggle.checked;
+                calt_toggle.nextElementSibling.textContent = calt ? 'Enabled' : 'Disabled';
+                update_style();
+            });
+            const onum_toggle = document.getElementById('onum');
+            onum_toggle.addEventListener('input', () => {
+                onum = onum_toggle.checked;
+                onum_toggle.nextElementSibling.textContent = onum ? 'Enabled' : 'Disabled';
+                update_style();
+            });
+        </script>
+    </body>
+</html>
