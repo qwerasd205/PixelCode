@@ -27,7 +27,7 @@
                 width: 80ch;
                 margin-left: auto;
                 margin-right: auto;
-                font-size: 12px;
+                margin-top: 4em;
             }
 
             .r {
@@ -129,6 +129,42 @@
             .download-section {
                 text-align: center;
                 margin-top: 2em; margin-bottom: 2em;
+            }
+
+            /* Scale font size with monitor size. */
+
+            body {
+                font-size: 6px;
+            }
+
+            @media (min-width: 600px) {
+                body {
+                    font-size: 8px;
+                }
+            }
+
+            @media (min-width: 800px) {
+                body {
+                    font-size: 10px;
+                }
+            }
+
+            @media (min-width: 1000px) {
+                body {
+                    font-size: 12px;
+                }
+            }
+
+            @media (min-width: 1400px) {
+                body {
+                    font-size: 14px;
+                }
+            }
+
+            @media (min-width: 1600px) {
+                body {
+                    font-size: 16px;
+                }
             }
         </style>
     </head>
