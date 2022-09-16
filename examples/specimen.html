@@ -274,7 +274,7 @@
         <h3>Stylistic Alternates</h3>
         <h4>(for those who prefer)</h4>
         <p>
-            Currently the only implemented stylistic alternate is Oldstyle Figures.<br><br>
+            There are some alternate styles available for certain sets of glyphs.<br><br>
             (onum) <input type="checkbox" name="onum" id="onum"> <label for="onum">Disabled</label>
         </p>
         <h4>Oldstyle Figures (onum)</h4>
@@ -289,6 +289,15 @@
             <br>
             let [x<span class="hi">1</span>, y<span class="hi">1</span>] = [<span class="hi">0</span>.<span class="hi">12569</span>, <span class="hi">0</span>.<span class="hi">45780</span>];<br>
         </div>
+        <br>
+        <p>(ss01) <input type="checkbox" name="ss01" id="ss01"> <label for="ss01">Disabled</label></p>
+        <h4>Straight Comma (ss01)</h4>
+        <div class="ex">
+            {a:b[c],d:e}; | Originally, when Pixel Code was first released, it had a<br>
+            :;:;:;:;:;:;: | less distinct style for the comma and semicolon; the old<br>
+            ,.,.,.,.,.,., | style has been made available as a togglable feature, so<br>
+            .:;,.: ;,.:;, | that it can still be used if you preferred it.
+        </div>
         <br><br>
         <div class="bottomspacer"></div>
 
@@ -296,8 +305,9 @@
             let calt = true;
             let onum = false;
             let liga = true;
+            let ss01 = false;
             const update_style = () => {
-                document.body.style.fontFeatureSettings = `"calt" ${+calt}, "onum" ${+onum}, "liga" ${+liga}`;
+                document.body.style.fontFeatureSettings = `"calt" ${+calt}, "onum" ${+onum}, "liga" ${+liga}, "ss01" ${+ss01}`;
             }
             update_style();
             const liga_toggle = document.getElementById('liga');
@@ -316,6 +326,12 @@
             onum_toggle.addEventListener('input', () => {
                 onum = onum_toggle.checked;
                 onum_toggle.nextElementSibling.textContent = onum ? 'Enabled' : 'Disabled';
+                update_style();
+            });
+            const ss01_toggle = document.getElementById('ss01');
+            ss01_toggle.addEventListener('input', () => {
+                ss01 = ss01_toggle.checked;
+                ss01_toggle.nextElementSibling.textContent = ss01 ? 'Enabled' : 'Disabled';
                 update_style();
             });
         </script>
