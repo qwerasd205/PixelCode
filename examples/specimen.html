@@ -22,6 +22,8 @@
 
             body {
                 font-family: "Pixel Code", "Comic Sans MS";
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
                 background-color: #000;
                 color: #FFF;
                 width: 80ch;
@@ -192,6 +194,20 @@
         <p class="download-section">
             <a href="https://github.com/qwerasd205/PixelCode/releases/latest" rel="noreferrer noopener" class="button">Latest Release</a>
         </p>
+        <br>
+        <p>
+            <b>Note</b>: This font looks a lot better without subpixel anti-aliasing.<br>
+            You should be able to turn this off in your editor.<br>
+            To do this in VS Code, set the "workbench.fontAliasing" setting to "antialiased".
+        </p>
+        <p>
+            If using Pixel Code on the web, you can use the following CSS:
+        </p>
+        <p>
+            -moz-osx-font-smoothing: grayscale;<br>
+            -webkit-font-smoothing: antialiased;
+        </p>
+        <br>
         <p>
             You can explore the togglable OpenType features of this font below.
         </p>
