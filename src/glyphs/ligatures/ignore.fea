@@ -1,9 +1,11 @@
+# AFTER_LIGATURES
+
 @equalish = [equal equal_equal.0 equal_equal_equal.0];
 @equalend = [equal equal_equal.1 equal_equal_equal.2];
 @slashish = [slash slash_slash.0 slash_slash_slash.0];
 @slashend = [slash slash_slash.1 slash_slash_slash.2];
-@asterish = [asterisk asterisk_asterisk.0];
-@asterend = [asterisk asterisk_asterisk.1];
+@asterish = [asterisk asterisk.calt asterisk_asterisk.0];
+@asterend = [asterisk asterisk.calt asterisk_asterisk.1];
 @barish = [bar bar_bar.0];
 @barend = [bar bar_bar.1];
 feature liga {

@@ -1,3 +1,4 @@
+# AFTER_LIGATURES
 @upper = [ zero one two three four five six seven eight nine A - Z Agrave Aacute Acircumflex Atilde Adieresis Aring AE Ccedilla Egrave Eacute Ecircumflex Edieresis Igrave Iacute Icircumflex Idieresis Eth Ntilde Ograve Oacute Ocircumflex Otilde Odieresis Oslash Ugrave Uacute Ucircumflex Udieresis Yacute Thorn germandbls colon.calt hyphen_greater less_hyphen less_exclam_hyphen_hyphen hyphen_hyphen_greater ];
 @lower = [ a - z agrave aacute acircumflex atilde adieresis aring ae ccedilla egrave eacute ecircumflex edieresis igrave iacute icircumflex idieresis eth ntilde ograve oacute ocircumflex otilde odieresis oslash ugrave uacute ucircumflex udieresis yacute thorn ydieresis zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum plus.calt hyphen.calt asterisk.calt l.shifted ];
 @digit = [ zero one two three four five six seven eight nine zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum ];
@@ -15,8 +16,12 @@ feature calt {
   # *EQ *eq
   ignore sub @upper asterisk' space @lower;
   ignore sub @upper space asterisk' space @lower;
+  ignore sub asterisk asterisk' asterisk' @lower;
+  ignore sub asterisk asterisk' asterisk' space @lower;
   sub asterisk' lookup CPUNCT @lower;
   sub asterisk' lookup CPUNCT space @lower;
+  sub asterisk' lookup CPUNCT asterisk @lower;
+  sub asterisk' lookup CPUNCT asterisk space @lower;
 
   # a:e A:E
   sub @upper colon' lookup CPUNCT @upper;
@@ -25,9 +30,11 @@ feature calt {
   sub @upper space colon' lookup CPUNCT space @upper;
 
   # C-O c-o
+  ignore sub hyphen hyphen' @lower;
   sub hyphen' lookup CPUNCT @lower;
 
   # X+Z x+z
+  ignore sub plus plus' @lower;
   sub plus' lookup CPUNCT @lower;
 
   # 0xFF 1920x1080

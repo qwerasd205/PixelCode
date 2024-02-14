@@ -334,7 +334,7 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
     styleNameShort = getStyleNameShort(weight, italicAngle)
     fullName       = f"{familyName} {styleNameShort}".strip()
     majorVersion   = 1
-    minorVersion   = 20
+    minorVersion   = 21
 
     ufo.info = Info(
         versionMajor = majorVersion,
@@ -418,8 +418,13 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
     )
 
     combinedFea = ""
+    afterLiga = ""
 
     for file, fea in features.items():
+        if fea.startswith("# AFTER_LIGATURES"):
+            afterLiga += f"# {file}\n"
+            afterLiga += f"{fea}\n"
+            continue
         combinedFea += f"# {file}\n"
         combinedFea += f"{fea}\n"
 
@@ -435,6 +440,7 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
         ligaFea += f"sub {ligature["name"]} by {" ".join(ligature["to"])};\n"
     ligaFea += "} liga;\n"
     combinedFea += ligaFea
+    combinedFea += afterLiga
 
     ufo.features = Features(combinedFea)
 
