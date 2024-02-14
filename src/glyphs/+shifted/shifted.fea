@@ -1,0 +1,10 @@
+@open_right = [i igrave iacute icircumflex idieresis l.shifted u ugrave uacute ucircumflex udieresis q t];
+@shiftable = [l];
+
+lookup SHIFT_LETTER {
+  sub l by l.shifted;
+} SHIFT_LETTER;
+
+feature dist {
+  sub @open_right @shiftable' lookup SHIFT_LETTER;
+} dist;

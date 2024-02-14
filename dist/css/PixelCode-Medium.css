@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Pixel Code";
+  src: url("../woff2/PixelCode-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pixel Code";
+  src: url("../woff2/PixelCode-Medium-Italic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: oblique;
+}

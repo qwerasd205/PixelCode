@@ -1,0 +1,36 @@
+@upper = [ zero one two three four five six seven eight nine A - Z Agrave Aacute Acircumflex Atilde Adieresis Aring AE Ccedilla Egrave Eacute Ecircumflex Edieresis Igrave Iacute Icircumflex Idieresis Eth Ntilde Ograve Oacute Ocircumflex Otilde Odieresis Oslash Ugrave Uacute Ucircumflex Udieresis Yacute Thorn germandbls colon.calt hyphen_greater less_hyphen less_exclam_hyphen_hyphen hyphen_hyphen_greater ];
+@lower = [ a - z agrave aacute acircumflex atilde adieresis aring ae ccedilla egrave eacute ecircumflex edieresis igrave iacute icircumflex idieresis eth ntilde ograve oacute ocircumflex otilde odieresis oslash ugrave uacute ucircumflex udieresis yacute thorn ydieresis zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum plus.calt hyphen.calt asterisk.calt l.shifted ];
+@digit = [ zero one two three four five six seven eight nine zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum ];
+@hex_digit = [ @digit a b c d e f A B C D E F ];
+
+lookup CPUNCT {
+  sub plus by plus.calt;
+  sub hyphen by hyphen.calt;
+  sub asterisk by asterisk.calt;
+  sub colon by colon.calt;
+  sub x by x.calt;
+} CPUNCT;
+
+feature calt {
+  # *EQ *eq
+  ignore sub @upper asterisk' space @lower;
+  ignore sub @upper space asterisk' space @lower;
+  sub asterisk' lookup CPUNCT @lower;
+  sub asterisk' lookup CPUNCT space @lower;
+
+  # a:e A:E
+  sub @upper colon' lookup CPUNCT @upper;
+  sub @upper space colon' lookup CPUNCT @upper;
+  sub @upper colon' lookup CPUNCT space @upper;
+  sub @upper space colon' lookup CPUNCT space @upper;
+
+  # C-O c-o
+  sub hyphen' lookup CPUNCT @lower;
+
+  # X+Z x+z
+  sub plus' lookup CPUNCT @lower;
+
+  # 0xFF 1920x1080
+  sub zero x' lookup CPUNCT @hex_digit;
+  sub @digit x' lookup CPUNCT @digit;
+} calt;

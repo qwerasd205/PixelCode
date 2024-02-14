@@ -1,0 +1,7 @@
+feature ss01 {
+  featureNames {
+    name "Straight Comma";
+  };
+  sub comma by comma.ss01;
+  sub semicolon by semicolon.ss01;
+} ss01;

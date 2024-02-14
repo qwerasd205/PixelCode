@@ -1,0 +1,39 @@
+@equalish = [equal equal_equal.0 equal_equal_equal.0];
+@equalend = [equal equal_equal.1 equal_equal_equal.2];
+@slashish = [slash slash_slash.0 slash_slash_slash.0];
+@slashend = [slash slash_slash.1 slash_slash_slash.2];
+@asterish = [asterisk asterisk_asterisk.0];
+@asterend = [asterisk asterisk_asterisk.1];
+@barish = [bar bar_bar.0];
+@barend = [bar bar_bar.1];
+feature liga {
+  # == and ===
+  sub @equalend' @equalish by equal;
+  sub equal_equal_equal.1' equal_equal_equal.2 @equalish by equal;
+  sub equal_equal_equal.0' equal_equal_equal.1 equal_equal_equal.2 @equalish by equal;
+
+  sub @equalend @equalish' by equal;
+  sub @equalend equal_equal_equal.1' by equal;
+  sub @equalend equal_equal_equal.2' by equal;
+  sub @equalend @equalish @equalend' by equal;
+
+  # // and ///
+  sub @slashend' @slashish by slash;
+  sub slash_slash_slash.1' slash_slash_slash.2 @slashish by slash;
+  sub slash_slash_slash.0' slash_slash_slash.1 slash_slash_slash.2 @slashish by slash;
+
+  sub @slashend @slashish' by slash;
+  sub @slashend slash_slash_slash.1' by slash;
+  sub @slashend slash_slash_slash.2' by slash;
+  sub @slashend @slashish @slashend' by slash;
+
+  # ** and ||
+  sub @asterend' @asterish by asterisk;
+  sub @asterend @asterish' by asterisk;
+  sub @asterish' @asterend @asterish by asterisk;
+  sub @asterend @asterish @asterend' by asterisk;
+  sub @barend' @barish by bar;
+  sub @barend @barish' by bar;
+  sub @barish' @barend @barish by bar;
+  sub @barend @barish @barend' by bar;
+} liga;

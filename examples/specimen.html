@@ -11,34 +11,74 @@
         <meta name="twitter:card" content="summary_large_image">
         <title>Pixel Code</title>
         <style>
-            @font-face {
-                font-family: "Pixel Code";
-                src: url("../dist/PixelCode.woff2") format("woff2"), url("../dist/PixelCode.woff") format("woff");
-            }
+            @import '../dist/css/all.css';
 
             :root {
-                --accent: #FFAAFF;
+                --bg:   #1f1b1a;
+                --bg-2: #2e2827;
+                --fg:   #fffae5;
+                --fg-2: #d9d1b2;
+                --accent: #feb4d5;
+            }
+
+            html {
+                display: grid;
+                justify-items: center;
             }
 
             body {
                 font-family: "Pixel Code", "Comic Sans MS";
-                -moz-osx-font-smoothing: grayscale;
-                -webkit-font-smoothing: antialiased;
-                background-color: #000;
-                color: #FFF;
+                filter: contrast(1);
+                background-color: var(--bg);
+                color: var(--fg);
                 width: 80ch;
-                margin-left: auto;
-                margin-right: auto;
+                margin-left: 3ch;
+                margin-right: 3ch;
                 margin-top: 4em;
+                line-height: 1.55;
+                font-weight: 300;
+                font-size: clamp(9px, var(--size), min(1.56vw, 1.25rem));
+                --size: 22.5px;
+            }
+
+            @media (max-width: 1488px) {
+                body {
+                    --size: 18px;
+                }
+            }
+            @media (max-width: 1188px) {
+                body {
+                    --size: 15.75px;
+                }
+            }
+            @media (max-width: 1038px) {
+                body {
+                    --size: 13.5px;
+                }
+            }
+            @media (max-width: 888px) {
+                body {
+                    --size: 11.25px;
+                }
+            }
+            @media (max-width: 738px) {
+                body {
+                    --size: 9px;
+                }
+            }
+
+            p {
+                margin: 2ex 0;
             }
 
             .r {
                 font-weight: normal !important;
-                color: #FFF;
+                color: var(--fg);
             }
 
             h1, h2, h3, h4 {
                 text-align: center;
+                font-weight: normal;
             }
 
             h3 {
@@ -52,8 +92,15 @@
 
             .ex {
                 font-family: "Pixel Code", "Comic Sans MS";
-                outline: 0.125em solid white;
-                padding: 2em;
+                outline: 0.125em solid var(--fg-2);
+                padding: 1.5em;
+                background-color: var(--bg-2);
+                box-shadow: 0 0.25em 0.5em #000000;
+                white-space: pre-line;
+            }
+
+            .ex > * {
+                white-space: pre;
             }
 
             .hi {
@@ -72,101 +119,187 @@
                 appearance: none;
                 font-size: 100%;
                 width: 1.5em; height: 1.5em;
-                background-color: #000;
+                background-color: #000000;
                 vertical-align: -0.5em;
                 font-family: "Pixel Code", "Comic Sans MS";
                 position: relative;
-                outline: 0.125em solid white;
+                outline: 0.125em solid var(--fg-2);
+                cursor: pointer;
             }
             input[type="checkbox"]::after {
-                font-size: 175%;
+                font-size: 150%;
                 content: "X";
-                color: #FFF;
+                color: var(--fg);
                 position: absolute;
                 width: 100%;
+                height: 100%;
                 text-align: center;
-                line-height: 0.8;
-                left: 0.015625em;
+                line-height: 1;
+                left: 0.0625em;
             }
             input:checked {
-                background-color: #FFF;
+                background-color: var(--fg);
             }
             input:checked::after {
                 content: "✓";
-                color: #000;
+                color: #000000;
+            }
+            input + label {
+                cursor: pointer;
             }
 
             a {
                 color: var(--accent);
-                text-decoration: none;
+                text-decoration-style: dotted;
             }
 
-            a:hover {
-                text-decoration: underline;
+            a:hover,
+            a:focus-visible {
+                text-decoration-style: solid;
             }
 
             a.button {
                 font-size: 125%;
-                border: 0.125em solid #FFF;
-                padding: 0.25em 1em;
-                margin-left: 1em; margin-right: 1em;
+                border: 0.125em solid var(--fg);
+                padding: 0.5em 1.5em;
+                margin: 0 1em;
                 background-color: var(--accent);
-                color: #000;
+                color: #000000;
+                font-weight: 400;
+                text-shadow: none;
+                box-shadow: 0 0 1em #000000;
+                text-decoration: none;
+            }
+
+            a.button:hover,
+            a.button:focus-visible {
+                background-color: var(--fg);
                 text-decoration: underline;
             }
 
-            a.button:hover, a.button:focus {
-                background-color: #FFF;
+            details {
+                background-color: var(--bg-2);
+                position: relative;
+                overflow: hidden;
+                box-shadow: inset 0 0 0.5em #000000;
             }
 
-            .bottomspacer {
+            details summary {
+                cursor: pointer;
+                text-decoration: underline;
+                text-decoration-style: dashed;
+                padding: 1em;
+            }
+
+            details summary:hover,
+            details summary:focus-visible {
+                text-decoration-style: solid;
+            }
+
+            details summary::-webkit-details-marker,
+            details summary::marker {
+                content: none;
+                display: none;
+            }
+
+            details summary::before {
+                content: '->';
+                width: 3em;
+                text-align: center;
+                float: left;
+            }
+
+            details summary:hover::before,
+            details summary:focus-visible::before {
+                color: var(--accent);
+            }
+
+            details[open] summary {
+                text-decoration: none;
+            }
+
+            details[open] summary::before {
+                content: '\\/';
+            }
+
+            details summary > * {
+                display: inline;
+            }
+
+            details > :not(summary) {
+                margin: 0 1.5em 1.5em;
+            }
+
+
+            .bottom-spacer {
                 height: 16em;
             }
 
             .justified {
                 text-align: justify;
-                text-justify: newspaper;
+                text-justify: distribute;
+                text-justify: inter-character;
             }
 
             .download-section {
                 text-align: center;
-                margin-top: 2em; margin-bottom: 2em;
+                margin: 1ex 0;
+                padding: 5ex 0;
+                box-shadow: inset 0 0 0.5em #000000;
+                background-color: var(--bg-2);
             }
 
-            /* Scale font size with monitor size. */
-
-            body {
-                font-size: 6px;
+            .noliga {
+              font-feature-settings: "liga" 0;
             }
 
-            @media (min-width: 600px) {
-                body {
-                    font-size: 8px;
-                }
+            .w100 {
+                font-weight: 100;
+            }
+            .w200 {
+                font-weight: 200;
+            }
+            .w300 {
+                font-weight: 300;
+            }
+            .w400 {
+                font-weight: 400;
+            }
+            .w500 {
+                font-weight: 500;
+            }
+            .w600 {
+                font-weight: 600;
+            }
+            .w700 {
+                font-weight: 700;
+            }
+            .w800 {
+                font-weight: 800;
+            }
+            .w900 {
+                font-weight: 900;
+            }
+            .w950 {
+                font-weight: 950;
             }
 
-            @media (min-width: 800px) {
-                body {
-                    font-size: 10px;
-                }
+            .prop {
+                color: #fbec68;
             }
-
-            @media (min-width: 1000px) {
-                body {
-                    font-size: 12px;
-                }
+            .keyword {
+                color: #df98fe;
             }
-
-            @media (min-width: 1400px) {
-                body {
-                    font-size: 14px;
-                }
+            .verb {
+                font-style: italic;
+                color: #e88484;
             }
-
-            @media (min-width: 1600px) {
-                body {
-                    font-size: 16px;
-                }
+            .key {
+                color: #5ee89e;
+            }
+            .comment {
+                color: #777;
+                font-style: italic;
             }
         </style>
     </head>
@@ -185,29 +318,49 @@
         </p>
         <p class="justified">
             Pixel Code also includes a full set of programming ligatures inspired by those in fonts like <a href="https://github.com/tonsky/FiraCode" rel="noreferrer noopener">Fira Code</a>.
-            Ligatures reduce visual noise, consolodating the meanings of multi-glyph structures automatically, so
+            Ligatures reduce visual noise, consolidating the meanings of multi-glyph structures automatically, so
             that the programmer's brain can spend more of its resources on actually programming.
         </p>
         <p>
             I hope you enjoy the font, I put a lot of work in to it!
         </p>
         <p class="download-section">
-            <a href="https://github.com/qwerasd205/PixelCode/releases/latest" rel="noreferrer noopener" class="button">Latest Release</a>
+            <a href="https://github.com/qwerasd205/PixelCode/releases/latest" rel="noreferrer noopener" class="button">Download</a>
+        </p>
+        <h3>Quick Start</h3>
+        <h4>How do I use this?</h4>
+        <p>
+            <details>
+                <summary><b>Local Installation</b> (for code editors, IDEs, etc.)</summary>
+                <p>
+                    Download the latest release from GitHub and install your desired weights
+                    and styles on your computer. If you don't know which format to install, I
+                    recommend using the TTF versions.
+                </p>
+                <p>
+                    Once the font is installed you should be able to configure your editor to
+                    use it using the name "Pixel Code".
+                </p>
+            </details>
         </p>
         <br>
+        <h3>Weights and Styles</h3>
+        <h4>Comes in a complete range of weights and regular/italic styles.</h4>
         <p>
-            <b>Note</b>: This font looks a lot better without subpixel anti-aliasing.<br>
-            You should be able to turn this off in your editor.<br>
-            To do this in VS Code, set the "workbench.fontAliasing" setting to "antialiased".
+            These alternate weights are automatically generated from the default (400).
         </p>
-        <p>
-            If using Pixel Code on the web, you can use the following CSS (only works on macOS):
-        </p>
-        <p>
-            -moz-osx-font-smoothing: grayscale;<br>
-            -webkit-font-smoothing: antialiased;
-        </p>
-        <br>
+        <div class="ex"><!--
+-->         <span class="w100">   100        Thin <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w200">   200  ExtraLight <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w300">   300       Light <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w400">   400     Regular <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w500">   500      Medium <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w600">   600    DemiBold <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w700">   700        Bold <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w800">   800   ExtraBold <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w900">   900       Black <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+            <span class="w950">   950  ExtraBlack <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+        </div>
         <p>
             You can explore the togglable OpenType features of this font below.
         </p>
@@ -219,73 +372,87 @@
             (liga) <input type="checkbox" name="liga" id="liga" checked> <label for="liga">Enabled</label>
         </p>
         <h4>Ligatures</h4>
-        <div class="ex">
-            Comments:<br>
-            <span class="hi">//</span> Single-line<br>
-            <span class="hi">/*</span> Multi-line <span class="hi">*/</span><br>
-            <span class="hi">&lt;!--</span> HTML-style <span class="hi">--&gt;</span><br>
-            <br>
-            Comparisons:<br>
-            x <span class="hi">&gt;=</span> y<br>
-            x <span class="hi">&lt;=</span> y<br>
-            x <span class="hi">!=</span> y<br>
-            x <span class="hi">==</span> y<br>
-            x <span class="hi">!==</span> y<br>
-            x <span class="hi">===</span> y<br>
-            <br>
-            Arrows:<br>
-            <span class="hi">=&gt;</span><br>
-            <span class="hi">-&gt;</span><br>
-            <span class="hi">&lt;-</span><br>
-            <br>
-            Assignments:<br>
-            a <span class="hi">:=</span> b<br>
-            a <span class="hi">*=</span> b<br>
-            a <span class="hi">/=</span> b<br>
-            a <span class="hi">|=</span> b<br>
-            a <span class="hi">&gt;&gt;=</span> b<br>
-            a <span class="hi">&lt;&lt;=</span> b<br>
-            <br>
-            Bitwise:<br>
-            p <span class="hi">&gt;&gt;</span> q<br>
-            p <span class="hi">&lt;&lt;</span> q<br>
-            p <span class="hi">&gt;&gt;&gt;</span> q<br>
-            p <span class="hi">&lt;&lt;&lt;</span> q<br>
-            <br>
-            Miscellaneous:<br>
-            j <span class="hi">||</span> k<br>
-            j <span class="hi">**</span> k<br>
-            std<span class="hi">::</span>namespace<br>
-            optional<span class="hi">?.</span>chaining<br>
+        <div class="ex"><!--
+-->         Comments:
+            <span class="hi">//</span> Single-line
+            <span class="hi">/*</span> Multi-line <span class="hi">*/</span>
+            <span class="hi">&lt;!--</span> HTML-style <span class="hi">--&gt;</span>
+
+            Comparisons:
+            x <span class="hi">&gt;=</span> y
+            x <span class="hi">&lt;=</span> y
+            x <span class="hi">!=</span> y
+            x <span class="hi">==</span> y
+            x <span class="hi">!==</span> y
+            x <span class="hi">===</span> y
+
+            Arrows:
+            <span class="hi">=&gt;</span>
+            <span class="hi">-&gt;</span>
+            <span class="hi">&lt;-</span>
+
+            Assignments:
+            a <span class="hi">:=</span> b
+            a <span class="hi">*=</span> b
+            a <span class="hi">/=</span> b
+            a <span class="hi">|=</span> b
+            a <span class="hi">&gt;&gt;=</span> b
+            a <span class="hi">&lt;&lt;=</span> b
+
+            Bitwise:
+            p<span class="hi"> &gt;&gt; </span>q
+            p<span class="hi"> &lt;&lt; </span>q
+            p<span class="hi"> &gt;&gt;&gt; </span>q
+            p<span class="hi"> &lt;&lt;&lt; </span>q
+
+            Miscellaneous:
+            j <span class="hi">||</span> k
+            j <span class="hi">**</span> k
+            std<span class="hi">::</span>namespace
+            optional<span class="hi">?.</span>chaining
             https<span class="hi">://</span>example.com
         </div>
         <br><br>
-        <h3>Contextually Aware Punctuation <div class="r">and</div> Fine-Tuned Inter-Character Alignments <div class="r">to avoid unseamly gaps.</div></h3>
-        <h4>(all while remaining monospaced)</h4>
+        <h3>Context Aware Punctuation</h3>
+        <h4>for better visual flow.</h4>
         <p>
             Can be toggled with the "Contextual Alternates" OpenType feature.<br><br>
             (calt) <input type="checkbox" name="calt" id="calt" checked> <label for="calt">Enabled</label>
         </p>
-        <h4>Context-aware punctuation.</h4>
-        <div class="ex">
-            0xFF 1920x1080 | Simplified x for hexadecimal and dimensions.<br>
-            <br>
-            *EQ *eq | Asterisks, colons, hyphens and plus signs<br>
-            A:E a:e | will move up or down depending on if they<br>
-            C-O c-o | follow (or precede) an uppercase or lower<br>
+        <div class="ex"><!--
+-->         0xFF 1920x1080 | Simplified x for hexadecimal and dimensions.
+
+            *EQ *eq | Asterisks, colons, hyphens and plus signs
+            A:E a:e | will move up or down depending on if they
+            C-O c-o | follow (or precede) an uppercase or lower
             X+Z x+z | case letter.
         </div>
         <br><br>
-        <h4>Gap-adjustments.</h4>
-        <div class="ex">
-            w<span class="hi">ill</span> ......| &nbsp;Notice, that even though<br>
-            h<span class="hi">ull</span> ......| toggling the calt feature<br>
-            fr<span class="hi">ill</span> .....| &nbsp;&nbsp;moves these 'l's to the<br>
-            ta<span class="hi">ili</span>ng ...| &nbsp;&nbsp;left, the characters to<br>
-            mod<span class="hi">ule</span> ....| &nbsp;the right remain unmoved.<br>
-            cas<span class="hi">tle</span> ....| <br>
-            sol<span class="hi">ilo</span>quy .| &nbsp;&nbsp;&nbsp;Monospace is preserved.
+        <h3>Pseudo-Kerning</h3>
+        <h4>to avoid unseemly gaps.</h4>
+        <p>
+            Most monospace fonts simply use wide serifs on the i and l characters in order to
+            make them fit nicely in with other glyphs without creating unnatural gaps on either
+            side. I was not satisfied with this, as doing so reduces their legibility by making
+            the letterforms less identifiable. So instead, I implemented "pseudo-kerning" that
+            uses contextual subsitution of the l character to push it to the left by a pixel
+            when it follows a letter with a wide right bearing like i and u.
+        </p>
+        <p>
+            Can be toggled wtih the "Distances" OpenType feature.<br><br>
+            (dist) <input type="checkbox" name="dist" id="dist" checked> <label for="dist">Enabled</label>
+        </p>
+        <div class="ex"><!--
+-->         w<span class="hi">ill</span> ......|. Notice, that even though
+            h<span class="hi">ull</span> ......| toggling the calt feature
+            fr<span class="hi">ill</span> .....|.. moves these 'l's to the
+            ta<span class="hi">ili</span>ng ...|.. left, the characters to
+            mod<span class="hi">ule</span> ....|. the right remain unmoved.
+            cas<span class="hi">tle</span> ....|..........................
+            sol<span class="hi">ilo</span>quy .|... Monospace is preserved.
         </div>
+        <br>
+        NOTE: <i>This demo does not work in Safari, where</i> dist <i>cannot be disabled.</i>
         <br><br>
         <h3>Stylistic Alternates</h3>
         <h4>(for those who prefer)</h4>
@@ -294,36 +461,41 @@
             (onum) <input type="checkbox" name="onum" id="onum"> <label for="onum">Disabled</label>
         </p>
         <h4>Oldstyle Figures (onum)</h4>
-        <div class="ex">
-            <span class="hi">10</span>, <span class="hi">9</span>, <span class="hi">8</span>, <span class="hi">7</span>,
-            <span class="hi">6</span>, <span class="hi">5</span>, <span class="hi">4</span>, <span class="hi">3</span>,
-            <span class="hi">2</span>, <span class="hi">1</span> -- Lift-off!<br>
-            <br>
-            What was it? <span class="hi">525</span>_<span class="hi">600</span> minutes in a year?<br>
-            <br>
-            const PI = <span class="hi">3</span>.<span class="hi">14159265358979323846264338</span>; // TODO: Increase precision.<br>
-            <br>
-            let [x<span class="hi">1</span>, y<span class="hi">1</span>] = [<span class="hi">0</span>.<span class="hi">12569</span>, <span class="hi">0</span>.<span class="hi">45780</span>];<br>
+        <div class="ex"><!--
+-->         <span class="hi">10</span>, <span class="hi">9</span>, <span class="hi">8</span>, <span class="hi">7</span>, <span class="hi">6</span>, <span class="hi">5</span>, <span class="hi">4</span>, <span class="hi">3</span>, <span class="hi">2</span>, <span class="hi">1</span> -- Lift-off!
+
+            What was it? <span class="hi">525</span>_<span class="hi">600</span> minutes in a year?
+
+            const PI = <span class="hi">3</span>.<span class="hi">14159265358979323846264338</span>; // TODO: Increase precision.
+
+            let [x<span class="hi">1</span>, y<span class="hi">1</span>] = [<span class="hi">0</span>.<span class="hi">12569</span>, <span class="hi">0</span>.<span class="hi">45780</span>];
         </div>
         <br>
         <p>(ss01) <input type="checkbox" name="ss01" id="ss01"> <label for="ss01">Disabled</label></p>
         <h4>Straight Comma (ss01)</h4>
-        <div class="ex">
-            {a:b.c,d:e}; | Originally, when Pixel Code was first released, it had a<br>
-            :;:;:;:;:;:; | less distinct style for the comma and semicolon; the old<br>
-            ,.,.,.,.,.,. | style has been made available as a togglable feature, so<br>
+        <div class="ex"><!--
+-->         {a:b.c,d:e}; | Originally, when Pixel Code was first released, it had a
+            :;:;:;:;:;:; | less distinct style for the comma and semicolon; the old
+            ,.,.,.,.,.,. | style has been made available as a togglable feature, so
             .:;,.:;,.:;, | that it can still be used if you preferred it.
         </div>
         <br><br>
-        <div class="bottomspacer"></div>
+        <div class="bottom-spacer"></div>
 
         <script>
             let calt = true;
+            let dist = true;
             let onum = false;
             let liga = true;
             let ss01 = false;
             const update_style = () => {
-                document.body.style.fontFeatureSettings = `"calt" ${+calt}, "onum" ${+onum}, "liga" ${+liga}, "ss01" ${+ss01}`;
+                document.body.style.fontFeatureSettings
+                = `"calt" ${+calt
+                }, "dist" ${+dist
+                }, "onum" ${+onum
+                }, "liga" ${+liga
+                }, "ss01" ${+ss01
+                }`;
             }
             update_style();
             const liga_toggle = document.getElementById('liga');
@@ -336,6 +508,12 @@
             calt_toggle.addEventListener('input', () => {
                 calt = calt_toggle.checked;
                 calt_toggle.nextElementSibling.textContent = calt ? 'Enabled' : 'Disabled';
+                update_style();
+            });
+            const dist_toggle = document.getElementById('dist');
+            dist_toggle.addEventListener('input', () => {
+                dist = dist_toggle.checked;
+                dist_toggle.nextElementSibling.textContent = dist ? 'Enabled' : 'Disabled';
                 update_style();
             });
             const onum_toggle = document.getElementById('onum');

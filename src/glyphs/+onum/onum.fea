@@ -1,0 +1,6 @@
+@digits = [zero one two three four five six seven eight nine];
+@digits.onum = [zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum];
+
+feature onum {
+  sub @digits by @digits.onum;
+} onum;
