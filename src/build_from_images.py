@@ -1,4 +1,5 @@
 import os
+import sys
 import math
 from math import sqrt
 from fontTools.designspaceLib import DesignSpaceDocument
@@ -210,6 +211,7 @@ def addLigature(parts, path, suffix, lazy = False):
     partNames = [f"{ligaName}.{i}" for i in range(len(parts))]
     with Image.open(path) as atlas:
         print(f"\"{"".join([chr(getOrd(c)) for c in parts])}\": {atlas.width}x{atlas.height}")
+        atlas = atlas.convert("1")
 
         i = 0
         for x in range(0, atlas.width, STRIDE_X):
@@ -264,6 +266,8 @@ def addGlyphsFromDir(dir, suffix = ""):
                 end   = ord(end[1]) if end.startswith("'") else int(end, 16)
                 with Image.open(fullPath) as atlas:
                     print(f"{file}: {atlas.width}x{atlas.height}, {start}-{end}")
+                    atlas = atlas.convert("1")
+
                     c = start
                     for y in range(0, atlas.height, STRIDE_Y):
                         for x in range(0, atlas.width, STRIDE_X):
@@ -475,7 +479,9 @@ if not os.path.exists("../build/instances"):
 
 MASTER_WEIGHTS = [100, 400, 950]
 
-for weight in WEIGHT_NAMES.keys():
+genWeights = WEIGHT_NAMES.keys() if len(sys.argv) < 2 else map(int, sys.argv[1:])
+
+for weight in genWeights:
     regularPath = writeUFO(weight)
     italicPath  = writeUFO(weight, 14)
     #
