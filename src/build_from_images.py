@@ -2,7 +2,7 @@ import os
 import sys
 import math
 from math import sqrt
-from fontTools.designspaceLib import DesignSpaceDocument
+# from fontTools.designspaceLib import DesignSpaceDocument
 from fontTools.pens.areaPen import AreaPen
 from fontTools.agl import UV2AGL, AGL2UV
 from ufoLib2.objects import Contour, Glyph, Info, Features, Point
@@ -338,7 +338,7 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
     styleNameShort = getStyleNameShort(weight, italicAngle)
     fullName       = f"{familyName} {styleNameShort}".strip()
     majorVersion   = 1
-    minorVersion   = 21
+    minorVersion   = 22
 
     ufo.info = Info(
         versionMajor = majorVersion,
