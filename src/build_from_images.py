@@ -30,8 +30,11 @@ ADVANCE  = 6
 X_HEIGHT   = 5
 CAP_HEIGHT = 7
 SCALE = 112
+scaleFactor = 1
 
 def adjustCoords(x, y):
+    x *= scaleFactor
+    y *= scaleFactor
     return (x * SCALE, (BASELINE - y) * SCALE)
 
 def makeGlyph(name: str, img: Image.Image):
@@ -213,9 +216,12 @@ def addLigature(parts, path, suffix, lazy = False):
         print(f"\"{"".join([chr(getOrd(c)) for c in parts])}\": {atlas.width}x{atlas.height}")
         atlas = atlas.convert("1")
 
+        x_stride = int(STRIDE_X / scaleFactor)
+        y_stride = int(STRIDE_Y / scaleFactor)
+
         i = 0
-        for x in range(0, atlas.width, STRIDE_X):
-            glyph = atlas.crop((x, 0, x + STRIDE_X, STRIDE_Y))
+        for x in range(0, atlas.width, x_stride):
+            glyph = atlas.crop((x, 0, x + x_stride, y_stride))
             name = partNames[i]
             glyphs[name] = makeGlyph(name, glyph)
             ligaGlyphOrder.append(name)
@@ -234,6 +240,7 @@ def addLigature(parts, path, suffix, lazy = False):
         })
 
 def addGlyphsFromDir(dir, suffix = ""):
+    global scaleFactor
     for file in os.listdir(dir):
         fullPath = f"{dir}/{file}"
         if os.path.isdir(fullPath):
@@ -247,7 +254,13 @@ def addGlyphsFromDir(dir, suffix = ""):
                 features[fullPath] = "\n".join(file.readlines())
             continue
         if file.endswith(".png"):
-            name = file.rsplit(".", 1)[0]
+            name: str = file.rsplit(".", 1)[0]
+            if "@" in name:
+                # e.g. "name@2X.png"
+                name, scale = name.split("@")
+                scaleFactor = 1 / int(scale[:-1])
+            else:
+                scaleFactor = 1
             if name.startswith('"'):
                 if name.endswith("?"):
                     addLigature(name[1:-2], fullPath, suffix, True)
@@ -268,10 +281,13 @@ def addGlyphsFromDir(dir, suffix = ""):
                     print(f"{file}: {atlas.width}x{atlas.height}, {start}-{end}")
                     atlas = atlas.convert("1")
 
+                    x_stride = int(STRIDE_X / scaleFactor)
+                    y_stride = int(STRIDE_Y / scaleFactor)
+
                     c = start
-                    for y in range(0, atlas.height, STRIDE_Y):
-                        for x in range(0, atlas.width, STRIDE_X):
-                            glyph = atlas.crop((x, y, x + STRIDE_X, y + STRIDE_Y))
+                    for y in range(0, atlas.height, y_stride):
+                        for x in range(0, atlas.width, x_stride):
+                            glyph = atlas.crop((x, y, x + x_stride, y + y_stride))
                             if c in WHITESPACE_GLYPHS or len(glyph.getcolors()) > 1:
                                 name = glyphName(c)
                                 if suffix:
