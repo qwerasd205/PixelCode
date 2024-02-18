@@ -354,7 +354,7 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
     styleNameShort = getStyleNameShort(weight, italicAngle)
     fullName       = f"{familyName} {styleNameShort}".strip()
     majorVersion   = 1
-    minorVersion   = 22
+    minorVersion   = 23
 
     ufo.info = Info(
         versionMajor = majorVersion,
