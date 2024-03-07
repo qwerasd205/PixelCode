@@ -10,6 +10,8 @@ from ufoLib2 import Font
 from PIL import Image
 from typing import Dict, List, Any
 
+from ufoLib2.objects.info import GaspBehavior, GaspRangeRecord
+
 WEIGHT_NAMES = {
     100: 'Thin',
     200: 'ExtraLight',
@@ -23,14 +25,16 @@ WEIGHT_NAMES = {
     950: 'ExtraBlack',
 }
 
-BASELINE = 10
-ASCENT   = 8
-DESCENT  = 1
-ADVANCE  = 6
-X_HEIGHT   = 5
-CAP_HEIGHT = 7
-SCALE = 112
-scaleFactor = 1
+TOTAL_HEIGHT = 12
+ADVANCE      = 6
+BASELINE     = 10
+ASCENT       = BASELINE
+DESCENT      = 2
+X_HEIGHT     = 5
+CAP_HEIGHT   = 7
+LINE_GAP     = (TOTAL_HEIGHT - ASCENT - DESCENT)
+SCALE        = 112
+scaleFactor  = 1
 
 def adjustCoords(x, y):
     x *= scaleFactor
@@ -353,8 +357,17 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
     styleName      = getStyleName(weight, italicAngle)
     styleNameShort = getStyleNameShort(weight, italicAngle)
     fullName       = f"{familyName} {styleNameShort}".strip()
-    majorVersion   = 1
-    minorVersion   = 23
+    majorVersion   = 2
+    minorVersion   = 0
+
+    styleMapFamilyName = f"{familyName} {WEIGHT_NAMES[weight]}"
+    styleMapStyleName  = "regular"
+    if weight > 400:
+        styleMapStyleName = "bold"
+        if italicAngle > 0:
+            styleMapStyleName += " italic"
+    elif italicAngle > 0:
+        styleMapStyleName = "italic"
 
     ufo.info = Info(
         versionMajor = majorVersion,
@@ -365,36 +378,43 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
         styleName            = styleName,
         postscriptFullName   = fullName,
 
+        # Stylemap
+        styleMapFamilyName = styleMapFamilyName,
+        styleMapStyleName  = styleMapStyleName,
+
         # Copyright
         copyright = "Copyright (c) Qwerasd 2024",
 
         # Name Table (name)
-        openTypeNameCompatibleFullName = fullName,
-        openTypeNameDescription        = "A pixel font that's actually good for programming.",
-        openTypeNameVersion            = f"Version {majorVersion}.{minorVersion}",
-        openTypeNameDesigner           = "Qwerasd",
+        openTypeNamePreferredFamilyName    = familyName,
+        openTypeNamePreferredSubfamilyName = styleNameShort,
+        openTypeNameCompatibleFullName     = fullName,
+        openTypeNameDescription            = "A pixel font that's actually good for programming.",
+        openTypeNameVersion                = f"Version {majorVersion}.{minorVersion}",
+        openTypeNameDesigner               = "Qwerasd",
 
         # Metrics
         unitsPerEm  = 1008,
-        descender   = DESCENT * SCALE,
-        ascender    = BASELINE * SCALE,
-        xHeight     = X_HEIGHT * SCALE,
+        descender   =    DESCENT * SCALE,
+        ascender    =     ASCENT * SCALE,
+        xHeight     =   X_HEIGHT * SCALE,
         capHeight   = CAP_HEIGHT * SCALE,
         # Italic angle in counter-clockwise degrees from the vertical.
         # Zero for upright text, negative for text that leans to the right (forward).
         italicAngle = -italicAngle,
 
         # Horizontal Header (hhea)
-        openTypeHheaAscender  = BASELINE * SCALE,
-        openTypeHheaDescender = -(2 * DESCENT) * SCALE,
-        openTypeHheaLineGap   = DESCENT * SCALE,
+        openTypeHheaAscender  = BASELINE * SCALE - 1,
+        openTypeHheaDescender = -DESCENT * SCALE + 1,
+        openTypeHheaLineGap   = LINE_GAP * SCALE,
 
         # OS/2
-        openTypeOS2TypoAscender  = ASCENT * SCALE,
-        openTypeOS2TypoDescender = -DESCENT * SCALE,
-        openTypeOS2TypoLineGap   = DESCENT * SCALE,
-        openTypeOS2WinAscent     = (2 * DESCENT + BASELINE) * SCALE,
-        openTypeOS2WinDescent    = (2 * DESCENT) * SCALE,
+        openTypeOS2Selection     = [7], # bit 7: USE_TYPO_METRICS
+        openTypeOS2TypoAscender  =   ASCENT * SCALE - 1,
+        openTypeOS2TypoDescender = -DESCENT * SCALE + 1,
+        openTypeOS2TypoLineGap   = LINE_GAP * SCALE,
+        openTypeOS2WinAscent     = BASELINE * SCALE,
+        openTypeOS2WinDescent    = (DESCENT + LINE_GAP) * SCALE,
         openTypeOS2Panose        = [
             # https://monotype.github.io/panose/pan2.htm
             # Family Kind
@@ -432,10 +452,18 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
         openTypeOS2VendorID      = "qwer",
 
         # Postscript (post)
-        postscriptUnderlinePosition  = int(-(DESCENT / 2) * SCALE),
+        postscriptUnderlinePosition  = int(-2 * SCALE),
         postscriptUnderlineThickness = int(SCALE),
         postscriptIsFixedPitch       = True,
     )
+
+    # Grid-fitting and Scan-conversion Procedure (gasp)
+    ufo.info.openTypeGaspRangeRecords = [
+        GaspRangeRecord(
+            0xFFFF,
+            [GaspBehavior.GRIDFIT]
+        )
+    ]
 
     combinedFea = ""
     afterLiga = ""
