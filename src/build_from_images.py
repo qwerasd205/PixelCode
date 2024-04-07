@@ -292,7 +292,7 @@ def addGlyphsFromDir(dir, suffix = ""):
                     for y in range(0, atlas.height, y_stride):
                         for x in range(0, atlas.width, x_stride):
                             glyph = atlas.crop((x, y, x + x_stride, y + y_stride))
-                            if c in WHITESPACE_GLYPHS or len(glyph.getcolors()) > 1:
+                            if c in WHITESPACE_GLYPHS or len(glyph.getcolors() or ()) > 1:
                                 name = glyphName(c)
                                 if suffix:
                                     name = f"{name}{suffix}"
@@ -350,6 +350,9 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
         ufo.addGlyph(g)
     for c, name in characterMap.items():
         ufo[name].unicodes = [c]
+
+    # Additionally map U+FFFD (Replacement Character) to the notdef glyph.
+    ufo[".notdef"].unicodes.append(0xFFFD)
 
     isItalic = italicAngle > 0
 
