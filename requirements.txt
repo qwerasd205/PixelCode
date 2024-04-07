@@ -1,0 +1,3 @@
+fonttools
+ufolib2
+pillow
