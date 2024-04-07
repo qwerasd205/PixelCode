@@ -1,8 +1,6 @@
 #!/bin/sh -e
 
-ROOT_DIR=$(dirname "$0")
-
-cd $ROOT_DIR
+cd "$(readlink -f $(dirname "$0"))"
 
 echo "Creating virtual environment..."
 python3 -m venv .venv
@@ -12,7 +10,7 @@ echo ""
 echo "================"
 echo ""
 echo "Installing requirements..."
-pip3 install -r requirements.txt
+pip3 install -r ./requirements.txt
 echo ""
 echo "================"
 echo ""
