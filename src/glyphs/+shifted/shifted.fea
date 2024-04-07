@@ -5,6 +5,9 @@ lookup SHIFT_LETTER {
   sub l by l.shifted;
 } SHIFT_LETTER;
 
-feature kern {
+feature ss20 {
+  featureNames {
+    name "Pseudo-kerning";
+  };
   sub @open_right @shiftable' lookup SHIFT_LETTER;
-} kern;
+} ss20;

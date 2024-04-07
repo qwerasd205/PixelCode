@@ -467,8 +467,12 @@
             when it follows a letter with a wide right bearing like i and u.
         </p>
         <p>
-            Can be toggled wtih the "Distances" OpenType feature.<br><br>
-            (dist) <input type="checkbox" name="dist" id="dist" checked> <label for="dist">Enabled</label>
+            I recommend enabling this feature for static text, but not for editable text, where
+            it can be jarring to have the characters jump around as you type.
+        </p>
+        <p>
+            Can be enabled with the "Stylistic Set 20" OpenType feature.<br><br>
+            (ss20) <input type="checkbox" name="ss20" id="ss20" checked> <label for="ss20">Enabled</label>
         </p>
         <div class="ex"><!--
 -->         w<span class="hi">ill</span> ......|. Notice, that even though
@@ -479,8 +483,6 @@
             cas<span class="hi">tle</span> ....|..........................
             sol<span class="hi">ilo</span>quy .|... Monospace is preserved.
         </div>
-        <br>
-        NOTE: <i>This demo does not work in Safari, where</i> dist <i>cannot be disabled.</i>
         <br><br>
         <h3>Stylistic Alternates</h3>
         <h4>(for those who prefer)</h4>
@@ -512,14 +514,14 @@
 
         <script>
             let calt = true;
-            let dist = true;
+            let ss20 = true;
             let onum = false;
             let liga = true;
             let ss01 = false;
             const update_style = () => {
                 document.body.style.fontFeatureSettings
                 = `"calt" ${+calt
-                }, "dist" ${+dist
+                }, "ss20" ${+ss20
                 }, "onum" ${+onum
                 }, "liga" ${+liga
                 }, "ss01" ${+ss01
@@ -538,10 +540,10 @@
                 calt_toggle.nextElementSibling.textContent = calt ? 'Enabled' : 'Disabled';
                 update_style();
             });
-            const dist_toggle = document.getElementById('dist');
-            dist_toggle.addEventListener('input', () => {
-                dist = dist_toggle.checked;
-                dist_toggle.nextElementSibling.textContent = dist ? 'Enabled' : 'Disabled';
+            const ss20_toggle = document.getElementById('ss20');
+            ss20_toggle.addEventListener('input', () => {
+                ss20 = ss20_toggle.checked;
+                ss20_toggle.nextElementSibling.textContent = ss20 ? 'Enabled' : 'Disabled';
                 update_style();
             });
             const onum_toggle = document.getElementById('onum');
