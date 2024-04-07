@@ -318,6 +318,11 @@ with Image.open("./glyphs/_.notdef.png") as notdef:
 
 addGlyphsFromDir("./glyphs")
 
+# Duplicate .notdef for U+FFFD (Replacement Character)
+glyphs["uniFFFD"] = glyphs[".notdef"]
+advanceWidths["uniFFFD"] = ADVANCE * SCALE
+characterMap[0xFFFD] = "uniFFFD"
+
 def getFamilyName():
     return "Pixel Code"
 
@@ -350,9 +355,6 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
         ufo.addGlyph(g)
     for c, name in characterMap.items():
         ufo[name].unicodes = [c]
-
-    # Additionally map U+FFFD (Replacement Character) to the notdef glyph.
-    ufo[".notdef"].unicodes.append(0xFFFD)
 
     isItalic = italicAngle > 0
 
