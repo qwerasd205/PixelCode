@@ -5,6 +5,6 @@ lookup SHIFT_LETTER {
   sub l by l.shifted;
 } SHIFT_LETTER;
 
-feature dist {
+feature kern {
   sub @open_right @shiftable' lookup SHIFT_LETTER;
-} dist;
+} kern;
