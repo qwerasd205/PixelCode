@@ -3,6 +3,7 @@
 @lower = [ a - z agrave aacute acircumflex atilde adieresis aring ae ccedilla egrave eacute ecircumflex edieresis igrave iacute icircumflex idieresis eth ntilde ograve oacute ocircumflex otilde odieresis oslash ugrave uacute ucircumflex udieresis yacute thorn ydieresis zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum plus.calt hyphen.calt asterisk.calt l.shifted ];
 @digit = [ zero one two three four five six seven eight nine zero.onum one.onum two.onum three.onum four.onum five.onum six.onum seven.onum eight.onum nine.onum ];
 @hex_digit = [ @digit a b c d e f A B C D E F ];
+@zero = [ zero zero.onum ];
 
 lookup CPUNCT {
   sub plus by plus.calt;
@@ -38,6 +39,6 @@ feature calt {
   sub plus' lookup CPUNCT @lower;
 
   # 0xFF 1920x1080
-  sub zero x' lookup CPUNCT @hex_digit;
+  sub @zero x' lookup CPUNCT @hex_digit;
   sub @digit x' lookup CPUNCT @digit;
 } calt;

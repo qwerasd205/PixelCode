@@ -5,6 +5,7 @@ from math import sqrt
 # from fontTools.designspaceLib import DesignSpaceDocument
 from fontTools.pens.areaPen import AreaPen
 from fontTools.agl import UV2AGL, AGL2UV
+from fontTools.unicodedata import east_asian_width
 from ufoLib2.objects import Contour, Glyph, Info, Features, Point
 from ufoLib2 import Font
 from PIL import Image
@@ -191,6 +192,14 @@ def italicize(g: Glyph, slope: float):
 def glyphName(c):
     return UV2AGL[c] if c in UV2AGL else f"uni{c:02X}"
 
+def charWidth(c):
+    ch = chr(c)
+    east_asian_class = east_asian_width(ch)
+    # For Full Width and Wide characters, return 2, otherwise return 1.
+    if east_asian_class == "F" or east_asian_class == "W":
+        return 2
+    return 1
+
 STRIDE_X = 6
 STRIDE_Y = 12
 
@@ -290,19 +299,34 @@ def addGlyphsFromDir(dir, suffix = ""):
 
                     c = start
                     for y in range(0, atlas.height, y_stride):
-                        for x in range(0, atlas.width, x_stride):
-                            glyph = atlas.crop((x, y, x + x_stride, y + y_stride))
+                        x = 0
+                        while x < atlas.width:
+                            width = charWidth(c)
+                            # Safety checks for wide characters
+                            if width > 1:
+                                # Wrap to next row early if wide char would be split by edge of atlas.
+                                if x + x_stride * width > atlas.width:
+                                    break
+                                # If the left half is completely empty, but the right half isn't, the
+                                # author probably didn't realize there was a wide glyph. Warn them.
+                                left_half = atlas.crop((x, y, x + x_stride, y + y_stride))
+                                right_half = atlas.crop((x + x_stride, y, x + x_stride * 2, y + y_stride))
+                                if len(left_half.getcolors() or ()) == 1 and len(right_half.getcolors() or ()) > 1:
+                                    print(f"WARNING! Potential misalignment in atlas at codepoint {c:02X} due to wide character!")
+                                    print("WARNING! To avoid such misalignments, use gen_template.py for a reference template!")
+                            glyph = atlas.crop((x, y, x + x_stride * width, y + y_stride))
                             if c in WHITESPACE_GLYPHS or len(glyph.getcolors() or ()) > 1:
                                 name = glyphName(c)
                                 if suffix:
                                     name = f"{name}{suffix}"
                                 glyphs[name] = makeGlyph(name, glyph)
-                                advanceWidths[name] = ADVANCE * SCALE
+                                advanceWidths[name] = ADVANCE * SCALE * width
                                 if not suffix:
                                     characterMap[c] = name
                                 else:
                                     altCharacterMap[c] = name
                             c += 1
+                            x += x_stride * width
                             if c > end:
                                 break
                         if c > end:

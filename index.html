@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A pixel font that's actually good for programming." property="og:description">
+    <meta content="https://qwerasd205.github.io/PixelCode/examples/quick_brown_fox.js.png" property="og:image">
+    <link type="application/json+oembed" href="https://qwerasd205.github.io/PixelCode/examples/oembed.json">
+    <link rel="canonical" href="https://qwerasd205.github.io/PixelCode" />
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Pixel Code</title>
+    <style>
+      @import './dist/css/all.css';
+
+      :root {
+        --bg:   #1f1b1a;
+        --bg-2: #2e2827;
+        --fg:   #fffae5;
+        --fg-2: #d9d1b2;
+        --accent: #feb4d5;
+      }
+
+      html {
+        display: grid;
+        justify-items: center;
+      }
+
+      body {
+        font-family: "Pixel Code", "Comic Sans MS";
+        line-height: 1.33333;
+        filter: contrast(1);
+        background-color: var(--bg);
+        color: var(--fg);
+        width: 80ch;
+        margin-left: 3ch;
+        margin-right: 3ch;
+        margin-top: 4em;
+        font-weight: 400;
+        font-size: 18px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          font-size: 9px;
+        }
+      }
+
+      p {
+        margin: 2ex 0;
+      }
+
+      .r {
+        font-weight: normal !important;
+        color: var(--fg);
+      }
+
+      h1, h2, h3, h4 {
+        text-align: center;
+        font-weight: normal;
+      }
+
+      h3 {
+        color: var(--accent);
+      }
+
+      h2, h4 {
+        margin-top: -1em;
+        font-weight: normal;
+      }
+
+      .ex {
+        font-family: "Pixel Code", "Comic Sans MS";
+        outline: 0.125em solid var(--fg-2);
+        padding: 1.5em;
+        background-color: var(--bg-2);
+        box-shadow: 0 0.25em 0.5em #000000;
+        white-space: pre-line;
+      }
+
+      .ex > * {
+        white-space: pre;
+      }
+
+      .hi {
+        color: var(--accent);
+        position: relative;
+      }
+
+      label {
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      input[type="checkbox"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        font-size: 100%;
+        width: 1.5em; height: 1.5em;
+        background-color: #000000;
+        vertical-align: -0.5em;
+        font-family: "Pixel Code", "Comic Sans MS";
+        position: relative;
+        outline: 0.125em solid var(--fg-2);
+        cursor: pointer;
+      }
+      input[type="checkbox"]::after {
+        font-size: 150%;
+        content: "X";
+        color: var(--fg);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        line-height: 1;
+        left: 0.0625em;
+      }
+      input:checked {
+        background-color: var(--fg);
+      }
+      input:checked::after {
+        content: "✓";
+        color: #000000;
+      }
+      input + label {
+        cursor: pointer;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration-style: dotted;
+      }
+
+      a:hover,
+      a:focus-visible {
+        text-decoration-style: solid;
+      }
+
+      a.button {
+        font-size: 125%;
+        border: 0.125em solid var(--fg);
+        padding: 0.5em 1.5em;
+        margin: 0 1em;
+        background-color: var(--accent);
+        color: #000000;
+        font-weight: 400;
+        text-shadow: none;
+        box-shadow: 0 0 1em #000000;
+        text-decoration: none;
+      }
+
+      a.button:hover,
+      a.button:focus-visible {
+        background-color: var(--fg);
+        text-decoration: underline;
+      }
+
+      details {
+        background-color: var(--bg-2);
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 0 0.5em #000000;
+      }
+
+      details summary {
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        padding: 1em;
+      }
+
+      details summary:hover,
+      details summary:focus-visible {
+        text-decoration-style: solid;
+      }
+
+      details summary::-webkit-details-marker,
+      details summary::marker {
+        content: none;
+        display: none;
+      }
+
+      details summary::before {
+        content: '->';
+        width: 3em;
+        text-align: center;
+        float: left;
+      }
+
+      details summary:hover::before,
+      details summary:focus-visible::before {
+        color: var(--accent);
+      }
+
+      details[open] summary {
+        text-decoration: none;
+      }
+
+      details[open] summary::before {
+        content: '\\/';
+      }
+
+      details summary > * {
+        display: inline;
+      }
+
+      details > :not(summary) {
+        margin: 0 1.5em 1.5em;
+      }
+
+
+      .bottom-spacer {
+        height: 16em;
+      }
+
+      .justified {
+        text-align: justify;
+        text-justify: distribute;
+        text-justify: inter-character;
+      }
+
+      .download-section {
+        text-align: center;
+        margin: 1ex 0;
+        padding: 5ex 0;
+        box-shadow: inset 0 0 0.5em #000000;
+        background-color: var(--bg-2);
+      }
+
+      .noliga {
+              font-feature-settings: "liga" 0;
+      }
+
+      .w100 {
+        font-weight: 100;
+      }
+      .w200 {
+        font-weight: 200;
+      }
+      .w300 {
+        font-weight: 300;
+      }
+      .w400 {
+        font-weight: 400;
+      }
+      .w500 {
+        font-weight: 500;
+      }
+      .w600 {
+        font-weight: 600;
+      }
+      .w700 {
+        font-weight: 700;
+      }
+      .w800 {
+        font-weight: 800;
+      }
+      .w900 {
+        font-weight: 900;
+      }
+      .w950 {
+        font-weight: 950;
+      }
+
+      .prop {
+        color: #fbec68;
+      }
+      .keyword {
+        color: #df98fe;
+      }
+      .verb {
+        font-style: italic;
+        color: #e88484;
+      }
+      .key {
+        color: #5ee89e;
+      }
+      .comment {
+        color: #777;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pixel Code</h1>
+    <h2>A pixel font that's actually good for programming.</h2>
+    <p class="justified">
+      Pixel Code is a monospace pixel art style programming font which is designed to maximize readability
+      and code-friendliness, while sticking to a pixel grid.
+    </p>
+    <p class="justified">
+      Each glyph was carefully designed to be as legible as possible, with special consideration given to
+      their roles in programming. Furthermore, the OpenType Contextual Alternates feature has been leveraged
+      to provide pseudo-kerning, eliminating uneven gaps caused by thin letters like 'i' and 'l', while
+      avoiding the need to reduce their legibility by making them wider.
+    </p>
+    <p class="justified">
+      Pixel Code also includes a full set of programming ligatures inspired by those in fonts like <a href="https://github.com/tonsky/FiraCode" rel="noreferrer noopener">Fira Code</a>.
+      Ligatures reduce visual noise, consolidating the meanings of multi-glyph structures automatically, so
+      that the programmer's brain can spend more of its resources on actually programming.
+    </p>
+    <p>
+      I hope you enjoy the font, I put a lot of work in to it!
+    </p>
+    <p class="download-section">
+      <a href="https://github.com/qwerasd205/PixelCode/releases/latest" rel="noreferrer noopener" class="button">Download</a>
+    </p>
+    <h3>Quick Start</h3>
+    <h4>How do I use this?</h4>
+    <p>
+      <details>
+        <summary><b>Local Installation</b> (for code editors, IDEs, etc.)</summary>
+        <p>
+          Download the latest release from GitHub and install your desired weights
+          and styles on your computer. If you don't know which format to install, I
+          recommend using the TTF versions.
+        </p>
+        <p>
+          Once the font is installed you should be able to configure your editor to
+          use it using the name "Pixel Code".
+        </p>
+      </details>
+    </p>
+    <br>
+    <h3>Weights and Styles</h3>
+    <h4>Comes in a complete range of weights and regular/italic styles.</h4>
+    <p>
+      These alternate weights are automatically generated from the default (400).
+    </p>
+    <div class="ex"><!--
+-->   <span class="w100">   100        Thin <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w200">   200  ExtraLight <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w300">   300       Light <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w400">   400     Regular <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w500">   500      Medium <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w600">   600    DemiBold <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w700">   700        Bold <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w800">   800   ExtraBold <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w900">   900       Black <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+      <span class="w950">   950  ExtraBlack <i>+ Italic</i>   |  * The Five Boxing Wizards Jump Quickly *</span>
+    </div>
+    <br>
+    <h3>Unicode Coverage</h3>
+    <h4>Language support &amp; various useful glyphs.</h4>
+    <p>
+      Pixel Code supports Latin, Greek, Cyrillic, and Hebrew alphabets.
+    </p>
+    <div class="ex justified"><!--
+-->   Í stórum hring vegarins, margir fólk leitar að ljósi sem leiðbeinir þeim. Some find it in the gentle breeze of the Caribbean sea, while others discover it in the vastness of the Siberian tundra. La vie est une aventure, une quête perpétuelle de bonheur et de sens. In dem großen Weg des Lebens suchen viele Menschen nach dem Licht, das sie führen wird. En el corazón de la selva amazónica, hay una calma inquebrantable que te invita a reflexionar. Em coração de Lisboa, há um fado que ecoa pelas vielas estreitas, contando histórias de amor e saudade. La vita è un'avventura, una ricerca perpetua di felicità e significato. A l'ànima del Barri Gòtic de Barcelona, hi ha un silenci serè que t'invita a reflexionar. В большом мире много красоты и удивительных моментов, которые ожидают нас впереди. У дворишту старог дворца, под широким небом, стоји стара храстова капија, која сведочи о прошлим временима. В големия свят има толкова много красота и чудесни моменти, които ни очакват напред. У великому світі багато краси та дивовижних моментів, які чекають нас вперед. Во големиот свет има толку многу убавина и чудесни моменти, кои не чекаат напред. Στον μεγάλο δρόμο της ζωής, πολλοί άνθρωποι ψάχνουν για το φως που θα τους καθοδηγήσει.
+      במסע הגדול של החיים, הרבים מחפשים את האור שינחיל אותם.
+    </div>
+    <i style="float: right">Sample text courtesy of ChatGPT</i>
+    <br>
+    <p>
+      And has box drawing characters, geometric shapes, dingbats, and various technical symbols.
+    </p>
+    <div class="ex"><!--
+-->   <span>╭─ Box Drawing ──────────╮</span>
+      <span>│ ┌─┬┐  ╔═╦╗  ╓─╥╖  ╒═╤╕ │</span>
+      <span>│ │ ││  ║ ║║  ║ ║║  │ ││ │</span>
+      <span>│ ├─┼┤  ╠═╬╣  ╟─╫╢  ╞═╪╡ │</span>
+      <span>│ └─┴┘  ╚═╩╝  ╙─╨╜  ╘═╧╛ │</span>
+      <span>│ ╭───────────────────╮  │</span>
+      <span>│ │  ╔═══╗  ╭───────╮ │▒ │</span>
+      <span>│ │  ╚═╦═╝  ╰───────╯ │▒ │</span>
+      <span>│ ╞═╤══╩══╤═══════════╡▒ │</span>
+      <span>│ │ ├──┬──┤           │▒ │</span>
+      <span>│ │ └──┴──┘           │▒ │</span>
+      <span>│ ╰───────────────────╯▒ │</span>
+      <span>│  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ │</span>
+      <span>╰────────────────────────╯</span>
+
+      <span>╭─ Geometric Shapes ──╮</span>
+      <span>│ ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ │</span>
+      <span>│ ▪ ▫ ▬ ▭ ▮ ▯     ▲ △ │</span>
+      <span>│ ▴ ▵ ▶ ▷ ▸ ▹ ► ▻ ▼ ▽ │</span>
+      <span>│ ▾ ▿ ◀ ◁ ◂ ◃ ◄ ◅ ◆ ◇ │</span>
+      <span>│ ◈ ◉ ◊ ○ ◌ ◍ ◎ ● ◐ ◑ │</span>
+      <span>│ ◒ ◓ ◔ ◕ ◖ ◗ ◘ ◙ ◚ ◛ │</span>
+      <span>│ ◜ ◝ ◞ ◟ ◠ ◡ ◢ ◣ ◤ ◥ │</span>
+      <span>│ ◦ ◧ ◨ ◩ ◪ ◫   ◭ ◮ ◯ │</span>
+      <span>│ ◰ ◱ ◲ ◳ ◴ ◵ ◶ ◷ ◸ ◹ │</span>
+      <span>│ ◺ ◻ ◼     ◿         │</span>
+      <span>╰─────────────────────╯</span>
+
+      <span>╭─ Dingbats ───────╮</span>
+      <span>│      ✅   ✉✊✋✌ │</span>
+      <span>│       ✓✔✕✖✗✘✙✚✛✜ │</span>
+      <span>│     ✡✢✣✤✥✦✧✨    │</span>
+      <span>│        ✳✴        │</span>
+      <span>│    ✿❀      ❇❈    │</span>
+      <span>│ ❌ ❎❏❐❑❒❓❔❕  │</span>
+      <span>│ ❗❘❙❚❛❜❝❞  ❡❢❣❤❥ │</span>
+      <span>│ ❦❧❨❩❪❫❬❭❮❯❰❱❲❳❴❵ │</span>
+      <span>│ ❶❷❸❹❺❻❼❽❾❿➀➁➂➃➄➅ │</span>
+      <span>│ ➆➇➈➉➊➋➌➍➎➏➐➑➒➓➔  │</span>
+      <span>│ ➕➖➗➘➙➚➛➜➝➞➟➠➡ │</span>
+      <span>│ ➢➣➤➥➦➧➨➩➪➫➬➭➮➯➰ │</span>
+      <span>│ ➱➲➳➴➵➶➷➸➹➺➻➼➽➾➿ │</span>
+      <span>╰──────────────────╯</span>
+
+      ──── Misc. ────
+
+      # Powerline
+                        
+
+      # Fira Progress Bar
+       
+       
+       
+       
+       
+       
+       ✓
+    </div>
+    <br>
+    <p>
+      The full set of glyphs in Pixel Code can be viewed below.
+    </p>
+    <div class="ex" style="line-height: 1.4815"><!--
+  --->&nbsp; ! &quot; # $ % &amp; &#x27; ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; &lt; = &gt;
+      ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^
+      _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~
+      ¡ ¢ £ ¤ ¥ ¦ § ¨ ª « ¬ ¯ ° ± ² ³ ´ µ ¶ · ¸ ¹ º » ¼ ½ ¾ ¿ À Á Â Ã
+      Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö × Ø Ù Ú Û Ü Ý Þ ß à á â ã
+      ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ÷ ø ù ú û ü ý þ ÿ Ā ā Ă ă
+      Ą ą Ć ć Ĉ ĉ Ċ ċ Č č Ď ď Đ đ Ē ē Ĕ ĕ Ė ė Ę ę Ě ě Ĝ ĝ Ğ ğ Ġ ġ Ģ ģ
+      Ĥ ĥ Ħ ħ Ĩ ĩ Ī ī Ĭ ĭ Į į İ ı Ĳ ĳ Ĵ ĵ Ķ ķ ĸ Ĺ ĺ Ļ ļ Ľ ľ Ŀ ŀ Ł ł Ń
+      ń Ņ ņ Ň ň ŉ Ŋ ŋ Ō ō Ŏ ŏ Ő ő Œ œ Ŕ ŕ Ŗ ŗ Ř ř Ś ś Ŝ ŝ Ş ş Š š Ţ ţ
+      Ť ť Ŧ ŧ Ũ ũ Ū ū Ŭ ŭ Ů ů Ű ű Ų ų Ŵ ŵ Ŷ ŷ Ÿ Ź ź Ż ż Ž ž ʰ ʱ ʲ ʳ ʴ
+      ʶ ʷ ʸ ˀ ˁ ˂ ˃ ˄ ˅ ˆ ˇ ˈ ˉ ˊ ˋ ˌ ˍ ˎ ˏ ː ˑ ˔ ˕ ˖ ˗ ˘ ˙ ˚ ˜ ˝ ˟ ˡ
+      ˢ ˣ ˤ ˥ ˦ ˧ ˨ ˩ ˪ ˫ ˬ ˭ ˯ ˰ ˱ ˲ ˳ ˴ ˵ ˶ ˷ ˸ ˹ ˺ ˻ ˼ ˽ ˾ Ͱ ͱ Ͳ ͳ
+      ʹ ͵ Ͷ ͷ ͺ ͻ ͼ ͽ ; Ϳ ΄ ΅ Ά · Έ Ή Ί Ό Ύ Ώ ΐ Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ
+      Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω Ϊ Ϋ ά έ ή ί ΰ α β γ δ ε ζ η θ ι κ λ μ
+      ν ξ ο π ρ ς σ τ υ φ χ ψ ω ϊ ϋ ό ύ ώ Ϗ ϐ ϑ ϒ ϓ ϔ ϕ ϖ ϗ Ϙ ϙ Ϛ ϛ Ϝ
+      ϝ Ϟ ϟ Ϡ ϡ ϱ ϲ ϳ ϴ ϵ ϶ Ϸ ϸ Ϲ Ϻ ϻ ϼ Ͻ Ͼ Ͽ Ѐ Ё Ђ Ѓ Є Ѕ І Ї Ј Љ Њ Ћ
+      Ќ Ѝ Ў Џ А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы
+      Ь Э Ю Я а б в г д е ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы
+      ь э ю я ѐ ё ђ ѓ є ѕ і ї ј љ њ ћ ќ ѝ ў џ א ב ג ד ה ו ז ח ט י ך כ
+      ל ם מ ן נ ס ע ף פ ץ צ ק ר ש ת ׳ ״ ᴬ ᴭ ᴮ ᴰ ᴱ ᴲ ᴳ ᴴ ᴵ ᴶ ᴷ ᴸ ᴹ ᴺ ᴻ
+      ᴼ ᴽ ᴾ ᴿ ᵀ ᵁ ᵂ ᵃ ᵅ ᵇ ᵈ ᵉ ᵍ ᵎ ᵏ ᵐ ᵑ ᵒ ᵖ ᵗ ᵘ ᵛ ᵝ ᵢ ᵣ ᵤ ᵥ ᵦ ‐ ‑ ‒ –
+      — ― ‖ ‘ ’ ‚ ‛ “ ” „ ‟ † ‡ • ‣ ․ ‥ … ‧ ′ ″ ‴ ‵ ‶ ‷ ‸ ‹ › ‼ ‽ ‾ ‿
+      ⁀ ⁁ ⁂ ⁃ ⁅ ⁆ ⁇ ⁈ ⁉ ⁋ ⁌ ⁍ ⁎ ⁐ ⁑ ⁒ ⁓ ⁔ ⁕ ⁖ ⁘ ⁙ ⁚ ⁛ ⁜ ⁝ ⁞ ⁰ ⁱ ⁴ ⁵ ⁶
+      ⁷ ⁸ ⁹ ⁺ ⁻ ⁼ ⁽ ⁾ ⁿ ₀ ₁ ₂ ₃ ₄ ₅ ₆ ₇ ₈ ₉ ₊ ₋ ₌ ₍ ₎ ₐ ₑ ₒ ₓ ₕ ₖ ₗ ₘ
+      ₙ ₚ ₛ ₜ ← ↑ → ↓ ↕ ↖ ↗ ↘ ↙ ↩ ↪ ↰ ↱ ↲ ↳ ↴ ↵ ↶ ↷ ↸ ↺ ↻ ↼ ↽ ↾ ↿ ⇀ ⇁
+      ⇂ ⇃ ⇠ ⇡ ⇢ ⇣ ⇦ ⇧ ⇨ ⇩ ⇪ ─ ━ │ ┃ ┄ ┅ ┆ ┇ ┊ ┋ ┌ ┍ ┎ ┏ ┐ ┑ ┒ ┓ └ ┕ ┖
+      ┗ ┘ ┙ ┚ ┛ ├ ┝ ┞ ┟ ┠ ┡ ┢ ┣ ┤ ┥ ┦ ┧ ┨ ┩ ┪ ┫ ┬ ┭ ┮ ┯ ┰ ┱ ┲ ┳ ┴ ┵ ┶
+      ┷ ┸ ┹ ┺ ┻ ┼ ┽ ┾ ┿ ╀ ╁ ╂ ╃ ╄ ╅ ╆ ╇ ╈ ╉ ╊ ╋ ╌ ╍ ╎ ╏ ═ ║ ╒ ╓ ╔ ╕ ╖
+      ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ ╭ ╮ ╯ ╰ ╱ ╲ ╳ ╴ ╵ ╶
+      ╷ ╸ ╹ ╺ ╻ ╼ ╽ ╾ ╿ ▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ ▉ ▊ ▋ ▌ ▍ ▎ ▏ ▐ ░ ▒ ▓ ▔ ▕ ▖ ▗
+      ▘ ▙ ▚ ▛ ▜ ▝ ▞ ▟ ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ ▪ ▫ ▬ ▭ ▮ ▯ ▲ △ ▴ ▵ ▶ ▷ ▸ ▹
+      ► ▻ ▼ ▽ ▾ ▿ ◀ ◁ ◂ ◃ ◄ ◅ ◆ ◇ ◈ ◉ ◊ ○ ◌ ◍ ◎ ● ◐ ◑ ◒ ◓ ◔ ◕ ◖ ◗ ◘ ◙
+      ◚ ◛ ◜ ◝ ◞ ◟ ◠ ◡ ◢ ◣ ◤ ◥ ◦ ◧ ◨ ◩ ◪ ◫ ◭ ◮ ◯ ◰ ◱ ◲ ◳ ◴ ◵ ◶ ◷ ◸ ◹ ◺
+      ◻ ◼ ◿ ✅✉ ✊✋✌ ✓ ✔ ✕ ✖ ✗ ✘ ✙ ✚ ✛ ✜ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✨✳ ✴ ✿ ❀ ❇ ❈
+      ❌❎❏ ❐ ❑ ❒ ❓❔❕❗❘ ❙ ❚ ❛ ❜ ❝ ❞ ❡ ❢ ❣ ❤ ❥ ❦ ❧ ❨ ❩ ❪ ❫ ❬ ❭ ❮ ❯
+      ❰ ❱ ❲ ❳ ❴ ❵ ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿ ➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉ ➊ ➋ ➌ ➍ ➎ ➏
+      ➐ ➑ ➒ ➓ ➔ ➕➖➗➘ ➙ ➚ ➛ ➜ ➝ ➞ ➟ ➠ ➡ ➢ ➣ ➤ ➥ ➦ ➧ ➨ ➩ ➪ ➫ ➬ ➭ ➮ ➯
+      ➰➱ ➲ ➳ ➴ ➵ ➶ ➷ ➸ ➹ ➺ ➻ ➼ ➽ ➾ ➿⟲ ⟳ ⟵ ⟶ ⠁ ⠂ ⠃ ⠄ ⠅ ⠆ ⠇ ⠈ ⠉ ⠊ ⠋ ⠌
+      ⠍ ⠎ ⠏ ⠐ ⠑ ⠒ ⠓ ⠔ ⠕ ⠖ ⠗ ⠘ ⠙ ⠚ ⠛ ⠜ ⠝ ⠞ ⠟ ⠠ ⠡ ⠢ ⠣ ⠤ ⠥ ⠦ ⠧ ⠨ ⠩ ⠪ ⠫ ⠬
+      ⠭ ⠮ ⠯ ⠰ ⠱ ⠲ ⠳ ⠴ ⠵ ⠶ ⠷ ⠸ ⠹ ⠺ ⠻ ⠼ ⠽ ⠾ ⠿ ⡀ ⡁ ⡂ ⡃ ⡄ ⡅ ⡆ ⡇ ⡈ ⡉ ⡊ ⡋ ⡌
+      ⡍ ⡎ ⡏ ⡐ ⡑ ⡒ ⡓ ⡔ ⡕ ⡖ ⡗ ⡘ ⡙ ⡚ ⡛ ⡜ ⡝ ⡞ ⡟ ⡠ ⡡ ⡢ ⡣ ⡤ ⡥ ⡦ ⡧ ⡨ ⡩ ⡪ ⡫ ⡬
+      ⡭ ⡮ ⡯ ⡰ ⡱ ⡲ ⡳ ⡴ ⡵ ⡶ ⡷ ⡸ ⡹ ⡺ ⡻ ⡼ ⡽ ⡾ ⡿ ⢀ ⢁ ⢂ ⢃ ⢄ ⢅ ⢆ ⢇ ⢈ ⢉ ⢊ ⢋ ⢌
+      ⢍ ⢎ ⢏ ⢐ ⢑ ⢒ ⢓ ⢔ ⢕ ⢖ ⢗ ⢘ ⢙ ⢚ ⢛ ⢜ ⢝ ⢞ ⢟ ⢠ ⢡ ⢢ ⢣ ⢤ ⢥ ⢦ ⢧ ⢨ ⢩ ⢪ ⢫ ⢬
+      ⢭ ⢮ ⢯ ⢰ ⢱ ⢲ ⢳ ⢴ ⢵ ⢶ ⢷ ⢸ ⢹ ⢺ ⢻ ⢼ ⢽ ⢾ ⢿ ⣀ ⣁ ⣂ ⣃ ⣄ ⣅ ⣆ ⣇ ⣈ ⣉ ⣊ ⣋ ⣌
+      ⣍ ⣎ ⣏ ⣐ ⣑ ⣒ ⣓ ⣔ ⣕ ⣖ ⣗ ⣘ ⣙ ⣚ ⣛ ⣜ ⣝ ⣞ ⣟ ⣠ ⣡ ⣢ ⣣ ⣤ ⣥ ⣦ ⣧ ⣨ ⣩ ⣪ ⣫ ⣬
+      ⣭ ⣮ ⣯ ⣰ ⣱ ⣲ ⣳ ⣴ ⣵ ⣶ ⣷ ⣸ ⣹ ⣺ ⣻ ⣼ ⣽ ⣾ ⣿ ⤌ ⤍ ⤎ ⤏ ⤙ ⤚ ⤛ ⤜ ⤡ ⤢ ⤣ ⤤ ⤥
+      ⤦ ⤴ ⤵ ⤶ ⤷ ⤸ ⤹ ⤺ ⤻ ⤾ ⤿ ⥢ ⥣ ⥤ ⥥ ⥦ ⥧ ⥨ ⥩ ⥪ ⥫ ⥬ ⥭ ⥮ ⥯ ⥰ ⬀ ⬁ ⬂ ⬃ ⬅ ⬆
+      ⬇ ⬈ ⬉ ⬊ ⬋ ⬎ ⬏ ⬐ ⬑ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬚ ⬛⬜⬝ ⬞ ⬥ ⬦ ⬧ ⬨ ⭕⭠ ⭡ ⭢ ⭣ ⭥
+      ⭦ ⭧ ⭨ ⭩ ⭮ ⭯ ⮌ ⮍ ⮎ ⮏ ⮐ ⮑ ⮒ ⮓ ⮕ ⮬ ⮭ ⮮ ⮯ ⮺ ⮻ ⮼ ⯀ ⯁ ⯅ ⯆ ⯇ ⯈ ⯊ ⯋ ⯑ ⯒
+      ⯾ ⯿ ⱼ ⱽ ꟲ ꟳ ꟴ ꟹ                        
+             � 🬀 🬁 🬂 🬃 🬄 🬅 🬆 🬇 🬈 🬉 🬊 🬋 🬌 🬍 🬎 🬏 🬐 🬑 🬒 🬓 🬔 🬕 🬖 🬗
+      🬘 🬙 🬚 🬛 🬜 🬝 🬞 🬟 🬠 🬡 🬢 🬣 🬤 🬥 🬦 🬧 🬨 🬩 🬪 🬫 🬬 🬭 🬮 🬯 🬰 🬱 🬲 🬳 🬴 🬵 🬶 🬷
+      🬸 🬹 🬺 🬻 🬼 🬽 🬾 🬿 🭀 🭁 🭂 🭃 🭄 🭅 🭆 🭇 🭈 🭉 🭊 🭋 🭌 🭍 🭎 🭏 🭐 🭑 🭒 🭓 🭔 🭕 🭖 🭗
+      🭘 🭙 🭚 🭛 🭜 🭝 🭞 🭟 🭠 🭡 🭢 🭣 🭤 🭥 🭦 🭧 🭨 🭩 🭪 🭫 🭬 🭭 🭮 🭯 🮌 🮍 🮎 🮏 🮐 🮑 🮒 🮔
+      🮕 🮖 🮗 🮘 🮙 🮚 🮛 🮜 🮝 🮞 🮟 🮠 🮡 🮢 🮣 🮤 🮥 🮦 🮧 🮨 🮩 🮪 🮫 🮬 🮭 🮮 🮯 🮰 🮱 🮲 🮳 🮴
+      🮵 🮶 🮷 🮸 🮹 🮺 🮻 🮼 🮽 🮾 🮿 🯀 🯁 🯂 🯃 🯄 🯅 🯆 🯇 🯈 🯉 🯊 🯰 🯱 🯲 🯳 🯴 🯵 🯶 🯷 🯸 🯹
+    </div>
+    <br>
+    <p>
+      You can explore the togglable OpenType features of this font below.
+    </p>
+    <br>
+    <h3>Programming Ligatures</h3>
+    <h4>(to reduce visual noise)</h4>
+    <p>
+      Can be toggled with the "Ligatures" OpenType feature.<br><br>
+      (liga) <input type="checkbox" name="liga" id="liga" checked> <label for="liga">Enabled</label>
+    </p>
+    <h4>Ligatures</h4>
+    <div class="ex"><!--
+-->   Comments:
+      <span class="hi">//</span> Single-line
+      <span class="hi">/*</span> Multi-line <span class="hi">*/</span>
+      <span class="hi">///</span> Triple slash
+      <span class="hi">&lt;!--</span> HTML-style <span class="hi">--&gt;</span>
+
+      Comparisons:
+      x <span class="hi">&gt;=</span> y
+      x <span class="hi">&lt;=</span> y
+      x <span class="hi">!=</span> y
+      x <span class="hi">==</span> y
+      x <span class="hi">!==</span> y
+      x <span class="hi">===</span> y
+
+      Arrows:
+      <span class="hi">=&gt;</span>
+      <span class="hi">-&gt;</span>
+      <span class="hi">&lt;-</span>
+
+      Assignments:
+      a <span class="hi">:=</span> b
+      a <span class="hi">*=</span> b
+      a <span class="hi">/=</span> b
+      a <span class="hi">|=</span> b
+      a <span class="hi">&gt;&gt;=</span> b
+      a <span class="hi">&lt;&lt;=</span> b
+      a <span class="hi">+|=</span> b
+      a <span class="hi">-|=</span> b
+      a <span class="hi">*|=</span> b
+      a <span class="hi">&lt;&lt;|=</span> b
+
+      Bitwise:
+      p<span class="hi"> &gt;&gt; </span>q
+      p<span class="hi"> &lt;&lt; </span>q
+      p<span class="hi"> &gt;&gt;&gt; </span>q
+      p<span class="hi"> &lt;&lt;&lt; </span>q
+
+      Miscellaneous:
+      j <span class="hi">||</span> k
+      j <span class="hi">**</span> k
+      std<span class="hi">::</span>namespace
+      optional<span class="hi">?.</span>chaining
+      https<span class="hi">://</span>example.com
+    </div>
+    <br><br>
+    <h3>Context Aware Punctuation</h3>
+    <h4>for better visual flow.</h4>
+    <p>
+      Can be toggled with the "Contextual Alternates" OpenType feature.<br><br>
+      (calt) <input type="checkbox" name="calt" id="calt" checked> <label for="calt">Enabled</label>
+    </p>
+    <div class="ex"><!--
+-->   0xFF 1920x1080 | Simplified x for hexadecimal and dimensions.
+
+      *EQ *eq | Asterisks, colons, hyphens and plus signs
+      A:E a:e | will move up or down depending on if they
+      C-O c-o | follow (or precede) an uppercase or lower
+      X+Z x+z | case letter.
+    </div>
+    <br><br>
+    <h3>Pseudo-Kerning</h3>
+    <h4>to avoid unseemly gaps.</h4>
+    <p>
+      Most monospace fonts simply use wide serifs on the i and l characters in order to
+      make them fit nicely in with other glyphs without creating unnatural gaps on either
+      side. I was not satisfied with this, as doing so reduces their legibility by making
+      the letterforms less identifiable. So instead, I implemented "pseudo-kerning" that
+      uses contextual subsitution of the l character to push it to the left by a pixel
+      when it follows a letter with a wide right bearing like i and u.
+    </p>
+    <p>
+      I recommend enabling this feature for static text, but not for editable text, where
+      it can be jarring to have the characters jump around as you type.
+    </p>
+    <p>
+      Can be enabled with the "Stylistic Set 20" OpenType feature.<br><br>
+      (ss20) <input type="checkbox" name="ss20" id="ss20" checked> <label for="ss20">Enabled</label>
+    </p>
+    <div class="ex"><!--
+-->   w<span class="hi">ill</span> ......|. Notice, that even though
+      h<span class="hi">ull</span> ......| toggling the calt feature
+      fr<span class="hi">ill</span> .....|.. moves these 'l's to the
+      ta<span class="hi">ili</span>ng ...|.. left, the characters to
+      mod<span class="hi">ule</span> ....|. the right remain unmoved.
+      cas<span class="hi">tle</span> ....|..........................
+      sol<span class="hi">ilo</span>quy .|... Monospace is preserved.
+    </div>
+    <br><br>
+    <h3>Stylistic Alternates</h3>
+    <h4>(for those who prefer)</h4>
+    <p>
+      There are some alternate styles available for certain sets of glyphs.<br><br>
+      (onum) <input type="checkbox" name="onum" id="onum"> <label for="onum">Disabled</label>
+    </p>
+    <h4>Oldstyle Figures (onum)</h4>
+    <div class="ex"><!--
+-->   <span class="hi">10</span>, <span class="hi">9</span>, <span class="hi">8</span>, <span class="hi">7</span>, <span class="hi">6</span>, <span class="hi">5</span>, <span class="hi">4</span>, <span class="hi">3</span>, <span class="hi">2</span>, <span class="hi">1</span> -- Lift-off!
+
+      What was it? <span class="hi">525</span>_<span class="hi">600</span> minutes in a year?
+
+      const PI = <span class="hi">3</span>.<span class="hi">14159265358979323846264338</span>; // TODO: Increase precision.
+
+      let [x<span class="hi">1</span>, y<span class="hi">1</span>] = [<span class="hi">0</span>.<span class="hi">12569</span>, <span class="hi">0</span>.<span class="hi">45780</span>];
+    </div>
+    <br>
+    <p>(ss01) <input type="checkbox" name="ss01" id="ss01"> <label for="ss01">Disabled</label></p>
+    <h4>Straight Comma (ss01)</h4>
+    <div class="ex"><!--
+-->   {a:b.c,d:e}; | Originally, when Pixel Code was first released, it had a
+      :;:;:;:;:;:; | less distinct style for the comma and semicolon; the old
+      ,.,.,.,.,.,. | style has been made available as a togglable feature, so
+      .:;,.:;,.:;, | that it can still be used if you preferred it.
+    </div>
+    <br><br>
+    <div class="bottom-spacer"></div>
+
+    <script>
+      let calt = true;
+      let ss20 = true;
+      let onum = false;
+      let liga = true;
+      let ss01 = false;
+      const update_style = () => {
+        document.body.style.fontFeatureSettings
+        = `"calt" ${+calt
+        }, "ss20" ${+ss20
+        }, "onum" ${+onum
+        }, "liga" ${+liga
+        }, "ss01" ${+ss01
+        }`;
+      }
+      update_style();
+      const liga_toggle = document.getElementById('liga');
+      liga_toggle.addEventListener('input', () => {
+        liga = liga_toggle.checked;
+        liga_toggle.nextElementSibling.textContent = liga ? 'Enabled' : 'Disabled';
+        update_style();
+      });
+      const calt_toggle = document.getElementById('calt');
+      calt_toggle.addEventListener('input', () => {
+        calt = calt_toggle.checked;
+        calt_toggle.nextElementSibling.textContent = calt ? 'Enabled' : 'Disabled';
+        update_style();
+      });
+      const ss20_toggle = document.getElementById('ss20');
+      ss20_toggle.addEventListener('input', () => {
+        ss20 = ss20_toggle.checked;
+        ss20_toggle.nextElementSibling.textContent = ss20 ? 'Enabled' : 'Disabled';
+        update_style();
+      });
+      const onum_toggle = document.getElementById('onum');
+      onum_toggle.addEventListener('input', () => {
+        onum = onum_toggle.checked;
+        onum_toggle.nextElementSibling.textContent = onum ? 'Enabled' : 'Disabled';
+        update_style();
+      });
+      const ss01_toggle = document.getElementById('ss01');
+      ss01_toggle.addEventListener('input', () => {
+        ss01 = ss01_toggle.checked;
+        ss01_toggle.nextElementSibling.textContent = ss01 ? 'Enabled' : 'Disabled';
+        update_style();
+      });
+    </script>
+  </body>
+</html>
