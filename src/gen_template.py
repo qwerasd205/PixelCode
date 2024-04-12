@@ -88,6 +88,7 @@ def findFont(name):
 
 # Replace this list with one tuned to your system.
 FONTS = [p for p in [findFont(f) for f in [
+    "JetBrainsMono-Regular.ttf",
     "FiraCode-VF.ttf",
     "FiraCodeNerdFont-Regular.ttf",
     "Apple Symbols.ttf",
