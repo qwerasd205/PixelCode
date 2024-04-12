@@ -387,7 +387,7 @@ def writeUFO(weight: int = 400, italicAngle: float = 0.0):
     styleNameShort = getStyleNameShort(weight, italicAngle)
     fullName       = f"{familyName} {styleNameShort}".strip()
     majorVersion   = 2
-    minorVersion   = 1
+    minorVersion   = 2
 
     styleMapFamilyName = f"{familyName} {WEIGHT_NAMES[weight]}"
     styleMapStyleName  = "regular"
